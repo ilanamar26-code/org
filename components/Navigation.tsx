@@ -21,10 +21,10 @@ export function Navigation() {
 
   return (
     <nav className="sticky top-0 z-50 bg-offwhite/80 backdrop-blur-sm border-b border-stone/20">
-      <div className="max-w-screen-2xl mx-auto px-6 lg:px-12">
-        <div className="flex items-center justify-between h-20 md:h-24 overflow-hidden">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="flex items-center justify-between h-16 md:h-24 overflow-hidden">
           <Link href="/" className="flex items-center h-full">
-            <Logo variant="silver" className="h-40 md:h-40" />
+            <Logo variant="silver" className="h-24 md:h-40" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -48,7 +48,7 @@ export function Navigation() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-graphite"
+            className="md:hidden text-graphite p-2 -mr-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -64,7 +64,7 @@ export function Navigation() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-graphite hover:text-black transition-colors text-sm font-medium"
+                  className="text-graphite hover:text-black transition-colors text-base font-medium py-1"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.label}
@@ -72,7 +72,7 @@ export function Navigation() {
               ))}
               <Link
                 href={contactItem.href}
-                className="mt-2 inline-flex w-fit rounded-full border border-black/10 bg-black px-5 py-2 text-xs uppercase tracking-[0.3em] text-offwhite transition-colors hover:bg-graphite"
+                className="mt-2 inline-flex w-fit rounded-full border border-black/10 bg-black px-5 py-2.5 text-xs uppercase tracking-[0.3em] text-offwhite transition-colors hover:bg-graphite"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {contactItem.label}

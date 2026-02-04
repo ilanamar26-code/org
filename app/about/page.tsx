@@ -5,7 +5,7 @@ export default function AboutPage() {
         <p className="text-gold text-xs md:text-sm font-medium uppercase tracking-[0.3em]">
           About
         </p>
-        <h1 className="font-heading text-5xl md:text-6xl font-bold text-black whitespace-nowrap">
+        <h1 className="font-heading text-4xl md:text-6xl font-bold text-black">
           The story behind Orlinski Realty Group.
         </h1>
         <p className="text-graphite text-lg">

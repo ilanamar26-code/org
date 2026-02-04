@@ -31,8 +31,8 @@ export function PageHero({
             {label}
           </p>
         )}
-        <h1 className="font-heading text-5xl md:text-6xl font-bold text-black">{title}</h1>
-        {subtitle && <p className="text-graphite text-lg">{subtitle}</p>}
+        <h1 className="font-heading text-4xl md:text-6xl font-bold text-black">{title}</h1>
+        {subtitle && <p className="text-graphite text-base md:text-lg">{subtitle}</p>}
       </div>
       {(ctaText || secondaryCtaText) && (
         <div

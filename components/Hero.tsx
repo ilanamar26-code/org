@@ -8,13 +8,13 @@ export function Hero() {
   const reduceMotion = useReducedMotion()
 
   return (
-    <section className="relative min-h-[82vh] px-4 pb-2 pt-1 sm:px-6 md:pb-4 md:pt-2 lg:px-8">
+    <section className="relative min-h-[74vh] md:min-h-[82vh] px-4 pb-2 pt-1 sm:px-6 md:pb-4 md:pt-2 lg:px-8">
       <div className="grid gap-6 lg:grid-cols-[1.02fr_0.98fr] lg:items-stretch">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9 }}
-          className="my-auto space-y-6 lg:pr-2 max-w-[620px]"
+          className="my-auto space-y-5 md:space-y-6 lg:pr-2 max-w-[620px]"
         >
           <p className="text-gold text-xs md:text-sm font-medium uppercase tracking-[0.3em]">
             Pioneering Art-Driven Branded Residences
@@ -23,7 +23,7 @@ export function Hero() {
             Where real estate
             <span className="block text-gold">becomes art.</span>
           </h1>
-          <p className="text-graphite text-lg md:text-xl max-w-[520px]">
+          <p className="text-graphite text-base md:text-xl max-w-[520px]">
             We lead the branded residences sector by fusing the artistic vision of Richard Orlinski
             with visionary real estate developers. Confidentiality and curated access for serious
             developers, landowners, and investors.
@@ -43,7 +43,7 @@ export function Hero() {
         </motion.div>
 
         <motion.figure
-          className="relative h-full min-h-[520px] w-full overflow-hidden rounded-3xl border border-black/10 bg-offwhite shadow-[0_30px_80px_-60px_rgba(0,0,0,0.7)] lg:min-h-[640px]"
+          className="relative h-full min-h-[360px] md:min-h-[520px] w-full overflow-hidden rounded-3xl border border-black/10 bg-offwhite shadow-[0_30px_80px_-60px_rgba(0,0,0,0.7)] lg:min-h-[640px]"
           animate={
             reduceMotion
               ? undefined
