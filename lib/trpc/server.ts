@@ -24,7 +24,15 @@ export const appRouter = router({
         gdvRange: z.string().optional(),
         timeline: z.string().optional(),
         message: z.string().optional(),
-        userType: z.enum(['developer', 'landowner', 'investor', 'other']),
+        userType: z.enum([
+          'developer',
+          'investor',
+          'partner',
+          'press',
+          'broker',
+          'landowner',
+          'other',
+        ]),
         honeypot: z.string().optional(),
       }),
     )
