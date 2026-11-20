@@ -9,15 +9,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        black: '#0B0B0B',
-        offwhite: '#F5F5F2',
-        stone: '#D6D2C4',
-        gold: '#C9A24D',
-        graphite: '#1E1E1E',
+        // ORG Logotype 2027 palette — "identité pierre, ton sur ton"
+        black: '#2E2925', // anthracite chaud
+        offwhite: '#F4EFE8', // crème
+        ivory: '#F4EFE8',
+        sand: '#EBE2D9', // beige pierre
+        stone: '#CCC0B0', // pierre claire
+        greige: '#9E9284', // pierre grège
+        gold: '#8A7D70',
+        bronze: '#8A7D70', // accent: between pierre grège and grège foncé, legible on crème
+        graphite: '#4A423C',
+        muted: '#6E6358', // grège foncé
       },
       fontFamily: {
-        heading: ['var(--font-space-grotesk)', 'sans-serif'],
-        body: ['var(--font-inter)', 'sans-serif'],
+        heading: ['var(--font-cormorant)', 'Georgia', 'serif'],
+        body: ['var(--font-montserrat)', 'sans-serif'],
       },
     },
   },

@@ -32,7 +32,7 @@ export default function ContactPage() {
                 Open the Form
               </CTAButton>
               <CTAButton href="/projects" variant="light">
-                Discover Concepts
+                Discover our projects
               </CTAButton>
             </div>
           </div>

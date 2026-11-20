@@ -23,6 +23,7 @@ export function QualificationForm() {
       | 'press'
       | 'broker'
       | 'landowner'
+      | 'buyer'
       | 'other',
     honeypot: '',
   })

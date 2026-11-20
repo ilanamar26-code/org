@@ -1,56 +1,101 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import { site } from '@/lib/site'
+import { orlinskiBay as ob } from '@/lib/orlinski-bay'
 
-const footerLinks = {
-  main: [
-    { label: 'Press', href: '/press' },
-    { label: 'About', href: '/about' },
-    { label: 'Contact', href: '/contact' },
-  ],
-}
+const explore = [
+  { label: 'Orlinski Bay', href: '/orlinski-bay' },
+  { label: 'For developers', href: '/developers' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Richard Orlinski', href: '/brands' },
+  { label: 'Press', href: '/press' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+]
 
 export function Footer() {
+  const socials = [
+    { label: 'Instagram', href: site.social.instagram },
+    { label: 'LinkedIn', href: site.social.linkedin },
+  ].filter((s) => s.href)
+
   return (
-    <footer className="bg-black text-offwhite mt-16">
-      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-12 py-8 md:py-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-center">
-          {/* Logo */}
-          <div className="md:justify-self-start flex justify-center md:block">
-            <Image
-              src="/logo/org-logo-horizontal-white.png"
-              alt="Orlinski Realty Group"
-              width={520}
-              height={160}
-              className="h-16 sm:h-20 md:h-40 w-auto"
-              priority
-            />
+    <footer className="stone-dark text-offwhite">
+      <div className="mx-auto max-w-screen-2xl px-6 pb-10 pt-24 md:px-12">
+        <p className="max-w-6xl font-heading text-[clamp(2.6rem,7vw,6.5rem)] font-light leading-[0.95] text-white [text-wrap:balance]">
+          Where real estate <span className="italic text-sand">becomes art.</span>
+        </p>
+
+        <div className="mt-20 grid gap-12 border-t border-white/15 pt-12 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="space-y-5">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo/2027/org-h-creme.svg" alt="Orlinski Realty Group" className="h-14 w-auto" />
+            <p className="max-w-xs text-sm leading-relaxed text-stone">
+              The exclusive real estate licensee of Richard Orlinski. Art-driven branded residences, villas and hospitality.
+            </p>
           </div>
 
-          {/* Description */}
-          <div className="text-stone text-sm text-center max-w-md md:mx-auto">
-            <p>Curating branded residences and hospitality partnerships. Confidentiality, curated access.</p>
-          </div>
-
-          {/* Main Links */}
-          <div className="md:justify-self-end md:text-right">
-            <h3 className="font-heading text-xs font-semibold mb-3 uppercase tracking-[0.2em]">Navigation</h3>
-            <ul className="flex flex-wrap gap-x-5 gap-y-2 md:justify-end">
-              {footerLinks.main.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-stone hover:text-offwhite transition-colors text-sm"
-                  >
-                    {link.label}
+          <div>
+            <p className="mb-5 text-[10px] uppercase tracking-[0.3em] text-sand">Explore</p>
+            <ul className="space-y-2.5">
+              {explore.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className="text-sm text-stone transition-colors hover:text-white">
+                    {l.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
+
+          <div>
+            <p className="mb-5 text-[10px] uppercase tracking-[0.3em] text-sand">{ob.atelier.name}</p>
+            <p className="text-sm leading-relaxed text-stone">
+              Orlinski Bay sales gallery
+              <br />
+              {ob.atelier.address}
+              <br />
+              Opening {ob.atelier.opening}
+            </p>
+            <Link
+              href="/orlinski-bay#register"
+              className="mt-5 inline-block border-b border-white/40 pb-1 text-[11px] uppercase tracking-[0.3em] text-white hover:border-sand hover:text-sand"
+            >
+              Register your interest
+            </Link>
+          </div>
+
+          <div>
+            <p className="mb-5 text-[10px] uppercase tracking-[0.3em] text-sand">Contact</p>
+            <p className="text-sm leading-relaxed text-stone">
+              Orlinski Realty Group
+              <br />
+              {site.city}
+            </p>
+            <a href={`mailto:${site.email}`} className="mt-3 block text-sm text-white hover:text-sand">
+              {site.email}
+            </a>
+            {socials.length > 0 && (
+              <ul className="mt-5 flex gap-5">
+                {socials.map((s) => (
+                  <li key={s.label}>
+                    <a
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[11px] uppercase tracking-[0.3em] text-stone hover:text-white"
+                    >
+                      {s.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
 
-        <div className="border-t border-stone/20 mt-8 pt-5 text-center text-stone text-xs">
+        <div className="mt-16 flex flex-col gap-3 border-t border-white/10 pt-6 text-[11px] text-stone/70 md:flex-row md:justify-between">
           <p>&copy; {new Date().getFullYear()} Orlinski Realty Group. All rights reserved.</p>
+          <p>Images are non-contractual artist&apos;s impressions.</p>
         </div>
       </div>
     </footer>

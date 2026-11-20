@@ -11,15 +11,15 @@ interface LogoProps {
 }
 
 const logoMap = {
-  black: '/logo/logo-black.svg',
-  white: '/logo/logo-white.svg',
-  silver: '/logo/logo-horizontal-silver.png',
+  black: '/logo/2027/org-h-grege.svg',
+  white: '/logo/2027/org-h-creme.svg',
+  silver: '/logo/2027/org-h-grege.svg',
   lace: '/logo/logo-lace.jpg',
 }
 
 export function Logo({ variant = 'silver', className, width, height }: LogoProps) {
   const src = logoMap[variant]
-  const isSvg = variant === 'black' || variant === 'white' || false
+  const isSvg = variant !== 'lace'
 
   if (isSvg) {
     return (
@@ -36,10 +36,9 @@ export function Logo({ variant = 'silver', className, width, height }: LogoProps
     <Image
       src={src}
       alt="Orlinski Realty Group"
-      width={width || 140}
-      height={height || 40}
+      width={width || 900}
+      height={height || 446}
       className={cn('h-8 w-auto', className)}
-      priority={variant === 'silver'}
     />
   )
 }

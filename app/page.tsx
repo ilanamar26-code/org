@@ -1,374 +1,273 @@
+import Image from 'next/image'
 import Link from 'next/link'
-import { Hero } from '@/components/Hero'
-import { BentoGrid } from '@/components/BentoGrid'
-import { EditorialCard } from '@/components/EditorialCard'
-import { CTAButton } from '@/components/CTAButton'
-import { getAllBrands } from '@/lib/sanity'
-import { getAllProjects } from '@/lib/sanity'
+import { orlinskiBay as ob } from '@/lib/orlinski-bay'
+import { KenBurnsHero } from '@/components/motion/KenBurnsHero'
+import { Reveal, WordReveal } from '@/components/motion/Reveal'
+import { ParallaxImage } from '@/components/motion/ParallaxImage'
+import { HorizontalGallery } from '@/components/motion/HorizontalGallery'
+import { FilmButton } from '@/components/motion/FilmButton'
+import { pressReleases } from '@/lib/press-releases'
+import { CountUp } from '@/components/motion/CountUp'
+import { Marquee } from '@/components/motion/Marquee'
+import { FilmSection } from '@/components/motion/FilmSection'
+import { RevealFrame } from '@/components/motion/RevealFrame'
 
-export default async function HomePage() {
-  const brands = await getAllBrands()
-  const projects = await getAllProjects()
+const gallery = [
+  { src: ob.images.villaPool, title: 'The villa', caption: 'A sculpted shell of stone, opened to the sea.' },
+  { src: ob.images.arrival, title: 'The arrival', caption: 'Through the rock, into the light.' },
+  { src: ob.images.living, title: 'Interiors', caption: 'Double height, open to the sea.' },
+  { src: ob.images.lounge, title: 'The lounge', caption: 'A sunken lounge around the fire.' },
+  { src: ob.images.suite, title: 'The suites', caption: 'Sleeping against the cliff.' },
+  { src: ob.images.bath, title: 'The bath', caption: 'Carved stone, facing the open sea.' },
+]
 
+export default function HomePage() {
   return (
-    <div className="mx-auto max-w-[1200px] space-y-24 px-4 py-10 sm:px-6 lg:px-8">
-      {/* Hero Section */}
-      <div className="-mx-4 sm:-mx-6 lg:-mx-8 max-w-none">
-        <Hero />
-      </div>
-
-      {/* Icon Ledger */}
-      <section
-        aria-labelledby="icon-ledger-title"
-        className="relative overflow-hidden rounded-3xl border border-black/10 bg-offwhite px-6 py-14 md:px-10 md:py-16 shadow-[0_30px_80px_-60px_rgba(0,0,0,0.6)]"
-      >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-35"
-          style={{
-            backgroundImage: "url('/images/icon-ledger-facets.png')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            transform: 'rotate(180deg)',
-          }}
-        />
-        <div className="relative z-10 space-y-10">
-          <div className="space-y-4 max-w-2xl">
-            <p className="text-gold text-xs md:text-sm font-medium uppercase tracking-[0.2em]">
-              The Icon Ledger
+    <div>
+      {/* 1. Opening */}
+      <KenBurnsHero src={ob.images.hero} alt="An Orlinski Bay villa at dusk, Amoni">
+        <div className="mx-auto flex h-full max-w-screen-2xl flex-col justify-end px-6 pb-14 md:px-12 md:pb-20">
+          <p className="eyebrow !text-sand">Orlinski Realty Group presents</p>
+          <h1 className="mt-4 font-heading text-[clamp(4rem,13vw,13rem)] font-light leading-[0.85] tracking-[-0.01em] text-white">
+            Orlinski Bay
+          </h1>
+          <div className="mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+            <p className="max-w-md font-heading text-2xl font-light italic text-white/90 md:text-3xl">
+              Ten villas signed by Richard Orlinski. Amoni, Greece.
             </p>
-            <h2
-              id="icon-ledger-title"
-              className="font-heading text-4xl md:text-5xl font-bold text-black"
-            >
-              We choreograph legacy through art-driven residences.
-            </h2>
-            <p className="text-graphite text-lg">
-              Orlinski Realty Group merges sculpture, brand, and hospitality into collectible
-              places designed to be lived, experienced, and remembered.
-            </p>
-            <p className="text-graphite text-base">
-              For developers, the result is differentiation that drives premium pricing and demand.
-            </p>
-          </div>
-
-          <div className="grid gap-6">
-            <div className="rounded-2xl border border-black/10 bg-white/90 p-8 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.6)]">
-              <div className="flex h-full flex-col space-y-6">
-                <div className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-black/70">
-                  <span className="h-px w-10 bg-black/20" />
-                  Signature Statement
-                </div>
-                <p className="font-heading text-3xl md:text-4xl font-semibold text-black">
-                  We don’t build real estate. We sculpt icons.
-                </p>
-                <p className="text-graphite text-base md:text-lg max-w-2xl">
-                  From faceted geometry to immersive brand worlds, each residency is crafted as a
-                  cultural artifact that elevates value and prestige.
-                </p>
-                <div className="mt-auto flex flex-wrap gap-3">
-                  <span className="rounded-full border border-black/15 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-black">
-                    Confidentiality
-                  </span>
-                  <span className="rounded-full border border-black/15 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-black">
-                    Curated access
-                  </span>
-                  <span className="rounded-full border border-black/15 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-black">
-                    Art-driven
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="grid gap-6 lg:grid-cols-2">
-              <div className="rounded-2xl border border-black/10 bg-black px-6 py-8 text-offwhite shadow-[0_24px_60px_-40px_rgba(0,0,0,0.6)]">
-                <p className="text-xs uppercase tracking-[0.3em] text-stone">Impact Numbers</p>
-                <div className="mt-6 grid gap-4">
-                  {[
-                    { value: '1', label: 'Iconic artist' },
-                    { value: '2', label: 'Visionary founders' },
-                    { value: '3', label: 'Disciplines fused' },
-                  ].map((item) => (
-                    <div
-                      key={item.label}
-                      className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 px-4 py-3"
-                    >
-                      <span className="font-heading text-3xl text-offwhite">{item.value}</span>
-                      <span className="text-sm text-stone">{item.label}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="relative rounded-2xl border border-black/10 bg-white/90 p-6 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.5)]">
-                <p className="text-xs uppercase tracking-[0.3em] text-black/70">
-                  From Vision to Life
-                </p>
-                <div className="mt-6">
-                  <div className="absolute left-8 top-16 h-[calc(100%-88px)] w-px bg-black/15" />
-                  <ol className="space-y-6">
-                    {[
-                      {
-                        title: 'Myth to Meaning',
-                        description: 'Narrative and brand DNA that defines the icon.',
-                      },
-                      {
-                        title: 'Sculpt to Space',
-                        description: 'Art-led architecture and interior language.',
-                      },
-                      {
-                        title: 'Residency as Artifact',
-                        description: 'Collectible living experiences with lasting value.',
-                      },
-                    ].map((item) => (
-                      <li key={item.title} className="relative pl-12">
-                        <span className="absolute left-6 top-2 h-3 w-3 rounded-full bg-gold shadow-[0_0_0_6px_rgba(201,162,77,0.2)]" />
-                        <h3 className="font-heading text-lg font-semibold text-black">
-                          {item.title}
-                        </h3>
-                        <p className="text-sm text-graphite">{item.description}</p>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* What Orlinski Realty Group Does */}
-      <section className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-        <div className="space-y-6">
-          <p className="text-gold text-xs md:text-sm font-medium uppercase tracking-[0.2em]">
-            The Orlinski Method
-          </p>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-black">
-            Three disciplines. One collectible outcome.
-          </h2>
-          <p className="text-graphite text-lg max-w-2xl">
-            Orlinski Realty Group operates like a private atelier: brand rights, art-led design, and narrative
-            choreography engineered into a single, high-value residency ecosystem.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            {[
-              { label: 'Brand Equity', value: 'Licensing' },
-              { label: 'Design Language', value: 'Integration' },
-              { label: 'Market Prestige', value: 'Narrative' },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className="rounded-2xl border border-black/10 bg-offwhite/80 px-5 py-4 shadow-[0_20px_50px_-40px_rgba(0,0,0,0.6)]"
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-5 whitespace-nowrap">
+              <Link
+                href="/orlinski-bay"
+                className="bg-white px-8 py-4 text-[11px] uppercase tracking-[0.3em] text-black transition-colors hover:bg-bronze hover:text-white"
               >
-                <p className="text-xs uppercase tracking-[0.25em] text-black/60">{item.label}</p>
-                <p className="font-heading text-lg font-semibold text-black">{item.value}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="grid gap-6 md:grid-cols-2">
-          {[
-            {
-              title: 'Brand Licensing',
-              description:
-                'We license the Orlinski brand universe to visionary developers creating branded residences and hospitality experiences.',
-            },
-            {
-              title: 'Design Integration',
-              description:
-                "We integrate Orlinski's faceted geometry and artistic vision into architecture and interiors.",
-            },
-            {
-              title: 'Marketing & Narrative',
-              description:
-                'We craft compelling narratives and market positioning that resonate with high-net-worth buyers and collectors.',
-            },
-          ].map((item) => (
-            <div
-              key={item.title}
-              className="rounded-2xl border border-black/10 bg-offwhite/80 p-6 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.6)]"
-            >
-              <h3 className="font-heading text-xl font-semibold text-black">{item.title}</h3>
-              <p className="mt-4 text-graphite">{item.description}</p>
-            </div>
-          ))}
-          <div className="rounded-2xl border border-black/10 bg-black p-6 text-offwhite shadow-[0_24px_60px_-40px_rgba(0,0,0,0.6)]">
-            <p className="text-xs uppercase tracking-[0.25em] text-stone">Deliverable</p>
-            <p className="mt-4 font-heading text-2xl font-semibold">
-              Branded residences that behave like collectible art.
-            </p>
-            <p className="mt-4 text-sm text-stone">
-              Confidentiality, curated access, and a bespoke creative process for select partners.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Be Inspired */}
-      <section className="space-y-8">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div className="space-y-4">
-            <p className="text-gold text-xs md:text-sm font-medium uppercase tracking-[0.2em]">
-              The Orlinski Gallery
-            </p>
-            <h2 className="font-heading text-4xl md:text-5xl font-bold text-black">
-              A universe of sculpture, hospitality, and brand collaborations.
-            </h2>
-            <p className="text-graphite text-lg max-w-2xl">
-              Explore the artistic DNA that defines every Orlinski Realty Group residence. The experience moves from
-              monumental sculpture to immersive brand worlds.
-            </p>
-          </div>
-          <Link
-            href="/brands"
-            className="text-gold hover:text-black transition-colors text-sm font-medium inline-flex items-center gap-2"
-          >
-            Learn More About Richard Orlinski →
-          </Link>
-        </div>
-        <div className="grid gap-6 md:grid-cols-3">
-          {[
-            {
-              title: 'Sculpture',
-              description: 'Monumental and collectible works in resin, bronze, and marble.',
-              image: '/images/content/fonderie.jpg',
-            },
-            {
-              title: 'Galleries',
-              description: 'Installations and exhibitions in global cultural capitals.',
-              image: '/images/content/miami.jpg',
-            },
-            {
-              title: 'Collaboration',
-              description: 'Limited edition collaborations with luxury brands.',
-              image: '/images/content/collaboration.jpg',
-            },
-          ].map((item) => (
-            <EditorialCard
-              key={item.title}
-              title={item.title}
-              description={item.description}
-              image={item.image}
-              overlay
-            />
-          ))}
-        </div>
-      </section>
-
-      {/* Featured Brands */}
-      {brands.length > 0 && (
-        <section className="space-y-8">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div className="space-y-4">
-              <p className="text-gold text-xs md:text-sm font-medium uppercase tracking-[0.2em]">
-                Featured Brands
-              </p>
-              <h2 className="font-heading text-4xl md:text-5xl font-bold text-black">Brands</h2>
-              <p className="text-graphite text-lg max-w-2xl">
-                Select collaborations that extend the Orlinski universe into hospitality, design,
-                and branded living.
-              </p>
-            </div>
-            <Link
-              href="/brands"
-              className="text-gold hover:text-black transition-colors text-sm font-medium"
-            >
-              View All →
-            </Link>
-          </div>
-          <BentoGrid items={brands.slice(0, 4)} />
-        </section>
-      )}
-
-      {/* Signature Concepts */}
-      {projects.length > 0 && (
-        <section className="space-y-8">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div className="space-y-4">
-              <p className="text-gold text-xs md:text-sm font-medium uppercase tracking-[0.2em]">
-                Signature Concepts
-              </p>
-              <h2 className="font-heading text-4xl md:text-5xl font-bold text-black">
-                A curated showroom of iconic concepts.
-              </h2>
-              <p className="text-graphite text-lg max-w-2xl">
-                Each concept is a collectible address, designed to perform as both real estate and
-                cultural artifact.
-              </p>
-            </div>
-            <Link
-              href="/projects"
-              className="text-gold hover:text-black transition-colors text-sm font-medium"
-            >
-              View All →
-            </Link>
-          </div>
-        <div className="grid gap-6 lg:grid-cols-[1.4fr_0.6fr]">
-          <Link
-            href={`/projects/${projects[0].slug}`}
-            className="group rounded-3xl border border-black/10 bg-offwhite/80 p-6 shadow-[0_30px_80px_-60px_rgba(0,0,0,0.7)]"
-          >
-            <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-              <EditorialCard
-                title={projects[0].name}
-                description={projects[0].description || ''}
-                image={
-                  projects[0].heroImage ? undefined : '/images/content/project-placeholder.jpg'
-                }
-                variant="bare"
-              />
-              <div className="space-y-4">
-                <p className="text-xs uppercase tracking-[0.3em] text-black/60">
-                  Signature Showcase
-                </p>
-                  <p className="font-heading text-2xl font-semibold text-black">
-                    Designed as a rare address, positioned for global demand.
-                  </p>
-                  <p className="text-sm text-graphite">
-                    The Orlinski identity integrates into architecture, interiors, and brand
-                    moments to deliver lasting value.
-                  </p>
-                  <span className="text-gold text-sm font-medium">Discover the concept →</span>
-                </div>
-              </div>
-            </Link>
-            <div className="grid gap-6">
-              {projects.slice(1, 3).map((project: any) => (
-                <Link
-                  key={project.slug}
-                  href={`/projects/${project.slug}`}
-                  className="rounded-2xl border border-black/10 bg-offwhite/80 p-5 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.6)]"
-                >
-                  <EditorialCard
-                    title={project.name}
-                    description={project.description || ''}
-                    image={project.heroImage ? undefined : '/images/content/project-placeholder.jpg'}
-                    variant="bare"
-                  />
-                </Link>
-              ))}
+                Enter Orlinski Bay
+              </Link>
+              <FilmButton src={ob.film.src} poster={ob.film.poster} label="The film" />
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </KenBurnsHero>
 
-      {/* Final CTA */}
-      <section className="bg-black text-offwhite py-6 px-6 rounded-2xl text-center shadow-[0_30px_80px_-60px_rgba(0,0,0,0.7)]">
-        <div className="flex min-h-[200px] flex-col items-center justify-center gap-5 max-w-3xl mx-auto">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-offwhite">
-            Start a Confidential Discussion
-          </h2>
-          <p className="text-stone text-base md:text-lg">
-            Are you a developer, landowner, or investor interested in exploring a branded residence
-            partnership? Let&apos;s discuss your vision.
+      {/* 2. Statement, on faceted stone */}
+      <section className="full-bleed stone-beige stone-fixed">
+      <div className="mx-auto max-w-[1100px] px-6 py-32 text-center md:py-48">
+        <Reveal>
+          <p className="eyebrow">Our first destination</p>
+        </Reveal>
+        <h2 className="mt-8 font-heading text-[clamp(2.4rem,5.4vw,5.2rem)] font-light leading-[1.05] text-black">
+          <WordReveal text="Ten villas. One hillside." />
+          <br />
+          <WordReveal text="Most of the rock, kept." className="italic text-bronze" />
+        </h2>
+        <Reveal delay={0.2}>
+          <p className="mx-auto mt-10 max-w-xl text-lg leading-relaxed text-graphite">
+            On the Saronic coast of Corinthia, less than two hours from Athens, Richard Orlinski and Liakos Associates
+            Architects carve a private collection into the cliff above the sea.
           </p>
-          <div className="pt-1">
-            <CTAButton href="/contact" variant="light" className="px-8 py-3.5 text-base md:text-lg">
-              Contact Us
-            </CTAButton>
+        </Reveal>
+      </div>
+      </section>
+
+      {/* Film slot (horizontal) */}
+      <FilmSection
+        src={ob.film.src}
+        poster={ob.film.poster}
+        title={<>From rock <span className="italic text-stone">to art.</span></>}
+        caption="Richard Orlinski, Liakos Associates and KAMAI Group on how ten villas are drawn out of a Greek hillside."
+      />
+
+      {/* The rock */}
+      <section className="mx-auto max-w-[1300px] px-2 py-28 md:py-40">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:items-end">
+          <div className="space-y-8 lg:pb-6">
+            <Reveal>
+              <p className="eyebrow">The rock</p>
+            </Reveal>
+            <h2 className="font-heading text-[clamp(2.4rem,4.8vw,4.6rem)] font-light leading-[1.02] text-black">
+              <WordReveal text="Carved, not placed." />
+              <br />
+              <WordReveal text="Every villa keeps its stone." className="italic text-bronze" />
+            </h2>
+            <Reveal delay={0.15}>
+              <p className="max-w-md text-lg leading-relaxed text-graphite">
+                Orlinski reads the hillside the way he reads a raw block: facet by facet. The rock stays where it is.
+                You arrive through it, sleep against it and bathe beside it.
+              </p>
+            </Reveal>
           </div>
+          <RevealFrame className="relative aspect-[1024/500] w-full">
+            <Image src="/images/amoni/film-rock-villa.jpg" alt="The Amoni rock, traced into the facets of a villa" fill sizes="(min-width:1024px) 60vw, 100vw" className="object-cover" />
+          </RevealFrame>
+        </div>
+        <div className="mt-6 grid gap-6 md:mt-10 md:grid-cols-3">
+          {[
+            { src: ob.images.heroCliff, alt: 'A villa set into the cliff above the Saronic Gulf', l: 'On the cliff', aspect: 'aspect-[4/5]' },
+            { src: ob.images.entrance, alt: 'A bronze door set into the raw rock face', l: 'Through the rock', aspect: 'aspect-[4/5] md:mt-20' },
+            { src: ob.images.suite, alt: 'A suite built against the natural rock wall', l: 'Against the stone', aspect: 'aspect-[4/5]' },
+          ].map((p, i) => (
+            <Reveal key={p.l} delay={i * 0.1}>
+              <figure>
+                <RevealFrame className={`relative w-full ${p.aspect}`}>
+                  <Image src={p.src} alt={p.alt} fill sizes="(min-width:768px) 33vw, 100vw" className="object-cover" />
+                </RevealFrame>
+                <figcaption className="mt-4 text-[10px] uppercase tracking-[0.3em] text-muted">{p.l}</figcaption>
+              </figure>
+            </Reveal>
+          ))}
         </div>
       </section>
+
+      {/* Signatures marquee */}
+      <section className="full-bleed border-y border-black/10 py-7">
+        <Marquee
+          className="font-heading text-3xl font-light italic text-black md:text-4xl"
+          items={['Richard Orlinski × Liakos Associates', 'Orlinski Bay · Amoni', 'Developed by KAMAI Group', "L'Atelier · Athens", 'Orlinski Realty Group']}
+        />
+      </section>
+
+      {/* 3. Full-bleed parallax */}
+      <section className="full-bleed">
+        <ParallaxImage src={ob.images.aerial} alt="The Saronic coast seen from above" className="h-[85vh] min-h-[480px]" />
+      </section>
+
+      {/* 4. Numbers */}
+      <section className="mx-auto grid max-w-[1200px] grid-cols-2 gap-y-6 px-2 py-20 md:grid-cols-4 md:py-36">
+        {[
+          { v: '10', l: 'Villas, one collection' },
+          { v: '3', l: 'Typologies' },
+          { v: '1 h 50', l: 'From Athens' },
+          { v: '1', l: 'Artist' },
+        ].map((n, i) => (
+          <Reveal key={n.l} delay={i * 0.1} className="border-black/15 py-6 text-center md:border-l md:first:border-l-0">
+            <CountUp value={n.v} className="block font-heading text-6xl font-light leading-none text-black md:text-8xl" />
+            <p className="mt-5 text-[10px] uppercase tracking-[0.32em] text-muted">{n.l}</p>
+          </Reveal>
+        ))}
+      </section>
+
+      {/* 5. Horizontal gallery */}
+      <HorizontalGallery eyebrow="Inside Orlinski Bay" title="Stone, bronze and the sea." slides={gallery} />
+
+      {/* 6. The artist */}
+      <section className="mx-auto grid max-w-[1200px] gap-14 px-2 py-28 md:py-40 lg:grid-cols-2 lg:items-center">
+        <Reveal>
+          <ParallaxImage src={ob.images.richard} alt="Richard Orlinski" className="aspect-[4/5]" strength={8} sizes="50vw" />
+        </Reveal>
+        <div className="space-y-8">
+          <Reveal>
+            <p className="eyebrow">Richard Orlinski</p>
+          </Reveal>
+          <blockquote className="font-heading text-[clamp(2.2rem,4vw,3.8rem)] font-light italic leading-[1.1] text-black">
+            <WordReveal text={`« ${ob.quote} »`} />
+          </blockquote>
+          <Reveal delay={0.2}>
+            <p className="text-lg leading-relaxed text-graphite">
+              Best-selling French contemporary artist worldwide since 2015, shown in 200+ galleries. Orlinski Bay is his
+              first signature residential destination in Greece.
+            </p>
+          </Reveal>
+          <Reveal delay={0.3}>
+            <Link href="/brands" className="inline-block border-b border-black pb-1 text-[11px] uppercase tracking-[0.3em] text-black hover:border-bronze hover:text-bronze">
+              The artist
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 7. Register */}
+      <section className="full-bleed relative h-[90vh] min-h-[560px] overflow-hidden">
+        <Image src={ob.images.night} alt="Orlinski Bay at night" fill sizes="100vw" className="object-cover" />
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="relative z-10 mx-auto flex h-full max-w-[1000px] flex-col items-center justify-center px-6 text-center">
+          <Reveal>
+            <p className="eyebrow !text-sand">Private presentation · Athens</p>
+          </Reveal>
+          <h2 className="mt-8 font-heading text-[clamp(2.6rem,6vw,6rem)] font-light leading-[1] text-white">
+            <WordReveal text="Own a piece of Orlinski Bay." />
+          </h2>
+          <Reveal delay={0.25}>
+            <Link
+              href="/orlinski-bay#register"
+              className="mt-12 inline-block bg-white px-10 py-5 text-[11px] uppercase tracking-[0.3em] text-black transition-colors hover:bg-bronze hover:text-white"
+            >
+              Register your interest
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 8. For developers worldwide */}
+      <section className="mx-auto grid max-w-[1200px] gap-14 px-2 py-28 md:py-40 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        <div className="space-y-8">
+          <Reveal>
+            <p className="eyebrow">For developers, worldwide</p>
+          </Reveal>
+          <h2 className="font-heading text-[clamp(2.4rem,4.6vw,4.4rem)] font-light leading-[1.04] text-black">
+            <WordReveal text="Orlinski Bay is the template." />
+            <br />
+            <WordReveal text="Your site, next." className="italic text-bronze" />
+          </h2>
+          <Reveal delay={0.15}>
+            <p className="text-lg leading-relaxed text-graphite">
+              Orlinski Realty Group is the exclusive real estate licensee of Richard Orlinski. We partner with developers
+              on villas, residences and hotels, bringing artistic direction, brand, story, original works and the sales
+              stage. You develop and build; we make it a destination.
+            </p>
+          </Reveal>
+          <Reveal delay={0.25}>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link
+                href="/developers"
+                className="bg-black px-8 py-4 text-center text-[11px] uppercase tracking-[0.3em] text-offwhite transition-colors hover:bg-bronze"
+              >
+                Partner with us
+              </Link>
+              <Link
+                href="/contact"
+                className="border border-black px-8 py-4 text-center text-[11px] uppercase tracking-[0.3em] text-black transition-colors hover:bg-black hover:text-offwhite"
+              >
+                Submit a project
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <Reveal className="col-span-2">
+            <ParallaxImage src={ob.images.living} alt="Orlinski Bay interior" className="aspect-[16/10]" strength={6} sizes="55vw" />
+          </Reveal>
+          {[
+            { v: 'Middle East', l: 'Home territory · Dubai' },
+            { v: 'Greece', l: 'Orlinski Bay · launched' },
+            { v: 'French Alps', l: 'Next project' },
+            { v: 'Worldwide', l: 'Projects reviewed case by case' },
+          ].map((m, i) => (
+            <Reveal key={m.v} delay={i * 0.08}>
+              <div className="border-t border-black/15 pt-4">
+                <p className="font-heading text-2xl text-black">{m.v}</p>
+                <p className="mt-1 text-[10px] uppercase tracking-[0.28em] text-muted">{m.l}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* 9. Latest news */}
+      {pressReleases[0] && (
+      <section className="mx-auto max-w-[1200px] px-2 pb-24">
+        <Link
+          href={`/press/${pressReleases[0].slug}`}
+          className="group flex flex-col gap-4 border-y border-black/15 py-8 md:flex-row md:items-center md:justify-between"
+        >
+          <div className="space-y-2">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-bronze">Press release · {pressReleases[0].dateline}</p>
+            <p className="max-w-3xl font-heading text-2xl text-black transition-colors group-hover:text-bronze md:text-3xl">
+              {pressReleases[0].title}
+            </p>
+          </div>
+          <span className="shrink-0 text-[11px] uppercase tracking-[0.3em] text-black">Read →</span>
+        </Link>
+      </section>
+      )}
     </div>
   )
 }
