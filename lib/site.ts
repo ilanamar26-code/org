@@ -4,7 +4,7 @@ export const site = {
   email: 'ilan@orlinskirealtygroup.com',
   city: 'Dubai, United Arab Emirates',
   social: {
-    instagram: '',
+    instagram: 'https://www.instagram.com/orlinskirealtygroup',
     linkedin: '',
   },
 }
