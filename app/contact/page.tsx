@@ -1,99 +1,83 @@
-import { CTAButton } from '@/components/CTAButton'
 import { QualificationForm } from '@/components/QualificationForm'
+import { Reveal, WordReveal } from '@/components/motion/Reveal'
+import { orlinskiBay as ob } from '@/lib/orlinski-bay'
+import { site } from '@/lib/site'
+
+export const metadata = {
+  title: 'Contact | Orlinski Realty Group',
+  description: 'Developers, landowners, investors, buyers and press: start a confidential conversation with Orlinski Realty Group.',
+}
+
+const steps = [
+  { n: '01', t: 'Review', d: 'Every enquiry is read personally, in confidence.' },
+  { n: '02', t: 'Conversation', d: 'A first call to understand your project or request.' },
+  { n: '03', t: 'Next step', d: 'A presentation, a site visit or a proposal, as relevant.' },
+]
 
 export default function ContactPage() {
   return (
-    <div className="mx-auto max-w-[1200px] space-y-12 px-4 py-10 sm:px-6 lg:px-8">
-      <section className="relative overflow-hidden rounded-3xl border border-black/10 bg-offwhite px-6 py-12 md:px-10 md:py-14 shadow-[0_30px_80px_-60px_rgba(0,0,0,0.6)]">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-35"
-          style={{
-            backgroundImage: "url('/images/icon-ledger-facets.png')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            transform: 'rotate(180deg)',
-          }}
-        />
-        <div className="relative z-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div className="space-y-6">
-            <p className="text-gold text-xs md:text-sm font-medium uppercase tracking-[0.3em]">
-              Contact
-            </p>
-            <h1 className="font-heading text-5xl md:text-6xl font-bold text-black">
-              Start a confidential discussion.
-            </h1>
-            <p className="text-graphite text-lg max-w-2xl">
-              Whether you represent a development, investment, press, or partnership inquiry, our
-              team responds with discretion and a structured next‑step process.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 items-start">
-              <CTAButton href="#contact-form" variant="dark">
-                Open the Form
-              </CTAButton>
-              <CTAButton href="/concepts" variant="light">
-                Discover our projects
-              </CTAButton>
+    <div className="pb-0">
+      {/* Opening + form on faceted stone */}
+      <section className="full-bleed stone-beige stone-fixed -mt-px">
+        <div className="mx-auto grid max-w-screen-2xl gap-14 px-6 pb-24 pt-20 md:px-12 md:pb-32 md:pt-28 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+          <div className="flex flex-col justify-between gap-16">
+            <div className="space-y-8">
+              <Reveal>
+                <p className="eyebrow">Contact</p>
+              </Reveal>
+              <h1 className="font-heading text-[clamp(3rem,6.5vw,6.2rem)] font-light leading-[0.95] text-black">
+                <WordReveal text="Start a" />
+                <br />
+                <WordReveal text="conversation." className="italic text-bronze" />
+              </h1>
+              <Reveal delay={0.15}>
+                <p className="max-w-md text-lg leading-relaxed text-graphite">
+                  A site, a project, an acquisition or a story to tell: write to us. Every enquiry is read personally.
+                </p>
+              </Reveal>
             </div>
+
+            <dl className="grid gap-8 border-t border-black/15 pt-10 sm:grid-cols-2">
+              <div className="space-y-2">
+                <dt className="eyebrow">Orlinski Realty Group</dt>
+                <dd className="text-graphite">{site.city}</dd>
+                <dd>
+                  <a href={`mailto:${site.email}`} className="border-b border-black/30 pb-0.5 text-black hover:border-bronze hover:text-bronze">
+                    {site.email}
+                  </a>
+                </dd>
+              </div>
+              <div className="space-y-2">
+                <dt className="eyebrow">L&apos;Atelier · Athens</dt>
+                <dd className="text-graphite">{ob.atelier.address}</dd>
+                <dd className="text-graphite">Opening {ob.atelier.opening}</dd>
+              </div>
+            </dl>
           </div>
-          <div className="rounded-2xl border border-black/10 bg-white/90 p-6 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.6)]">
-            <p className="text-xs uppercase tracking-[0.3em] text-black/60">Confidentiality</p>
-            <p className="mt-3 text-graphite">
-              We handle all inquiries with care. Information shared here is reviewed privately and
-              used only to evaluate alignment and feasibility.
-            </p>
-          </div>
+
+          <Reveal delay={0.1}>
+            <div id="contact-form" className="scroll-mt-28 bg-ivory p-8 shadow-[0_40px_120px_-60px_rgba(46,41,37,0.55)] md:p-12">
+              <QualificationForm />
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      <section className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-        <div
-          id="contact-form"
-          className="rounded-3xl border border-black/10 bg-white p-8 shadow-[0_30px_80px_-60px_rgba(0,0,0,0.7)]"
-        >
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-            <p className="text-xs uppercase tracking-[0.3em] text-black/60">Inquiry</p>
-            <p className="text-xs text-graphite">
-              We typically respond within 48 hours.
-            </p>
-          </div>
-          <QualificationForm />
-        </div>
-        <div className="space-y-6">
-          <div className="rounded-2xl border border-black/10 bg-offwhite/80 p-6 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.6)]">
-            <p className="text-xs uppercase tracking-[0.3em] text-black/60">What to include</p>
-            <div className="mt-4 space-y-3 text-graphite text-sm">
-              <div className="flex items-start gap-3">
-                <span className="mt-1 h-2 w-2 rounded-full bg-gold" />
-                <p>Your role and organization.</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-1 h-2 w-2 rounded-full bg-gold" />
-                <p>The reason you&apos;re reaching out (project, press, partnership, or investment).</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-1 h-2 w-2 rounded-full bg-gold" />
-                <p>Any key dates, locations, or references that help us respond quickly.</p>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-2xl border border-black/10 bg-black text-offwhite p-6 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.6)]">
-            <p className="text-xs uppercase tracking-[0.3em] text-stone">Next steps</p>
-            <div className="mt-4 space-y-3 text-sm text-stone">
-              <div className="flex items-center justify-between">
-                <span>Initial review</span>
-                <span className="text-offwhite">Confidential</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span>Alignment call</span>
-                <span className="text-offwhite">Selective</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span>Feasibility &amp; scope</span>
-                <span className="text-offwhite">Structured</span>
-              </div>
-            </div>
-          </div>
+      {/* What happens next, on dark stone */}
+      <section className="full-bleed stone-dark border-b border-white/10 text-offwhite">
+        <div className="mx-auto max-w-screen-2xl px-6 py-20 md:px-12 md:py-28">
+          <p className="eyebrow !text-stone">What happens next</p>
+          <ol className="mt-10 grid gap-10 border-t border-white/15 pt-10 md:grid-cols-3">
+            {steps.map((s, i) => (
+              <Reveal key={s.n} delay={i * 0.08}>
+                <li className="space-y-3">
+                  <span className="font-heading text-lg italic text-stone">{s.n}</span>
+                  <p className="font-heading text-3xl font-light text-white">{s.t}</p>
+                  <p className="max-w-xs text-sm leading-relaxed text-stone">{s.d}</p>
+                </li>
+              </Reveal>
+            ))}
+          </ol>
         </div>
       </section>
     </div>

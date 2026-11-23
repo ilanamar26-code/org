@@ -2,245 +2,136 @@
 
 import { useState } from 'react'
 import { trpc } from '@/lib/trpc/client'
-import { CTAButton } from './CTAButton'
+
+const field =
+  'w-full border-0 border-b border-black/25 bg-transparent px-0 py-3 text-base text-black placeholder:text-muted focus:border-bronze focus:outline-none focus:ring-0'
+
+type UserType = 'developer' | 'investor' | 'partner' | 'press' | 'broker' | 'landowner' | 'buyer' | 'other'
+
+const userTypes: { value: UserType; label: string }[] = [
+  { value: 'developer', label: 'Developer' },
+  { value: 'landowner', label: 'Landowner' },
+  { value: 'investor', label: 'Investor' },
+  { value: 'buyer', label: 'Buyer' },
+  { value: 'partner', label: 'Partner' },
+  { value: 'press', label: 'Press' },
+  { value: 'other', label: 'Other' },
+]
+
+const withProject: UserType[] = ['developer', 'landowner', 'investor', 'partner']
 
 export function QualificationForm() {
-  const [formData, setFormData] = useState({
+  const [form, setForm] = useState({
+    userType: 'developer' as UserType,
     name: '',
     email: '',
+    phone: '',
     company: '',
     role: '',
-    phone: '',
     projectLocation: '',
-    assetType: '',
-    gdvRange: '',
-    timeline: '',
     message: '',
-    userType: 'developer' as
-      | 'developer'
-      | 'investor'
-      | 'partner'
-      | 'press'
-      | 'broker'
-      | 'landowner'
-      | 'buyer'
-      | 'other',
     honeypot: '',
   })
-
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const mutation = trpc.submitQualification.useMutation({
-    onSuccess: () => {
-      setSubmitted(true)
-    },
-    onError: (err) => {
-      setError(err.message)
-    },
+    onSuccess: () => setSubmitted(true),
+    onError: (err) => setError(err.message),
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const update = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm({ ...form, [key]: e.target.value })
+
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
-    mutation.mutate(formData)
+    mutation.mutate({
+      userType: form.userType,
+      name: form.name,
+      email: form.email,
+      phone: form.phone || undefined,
+      company: form.company || undefined,
+      role: form.role || undefined,
+      projectLocation: withProject.includes(form.userType) ? form.projectLocation || undefined : undefined,
+      message: form.message || undefined,
+      honeypot: form.honeypot,
+    })
   }
 
   if (submitted) {
     return (
-      <div className="rounded-2xl border border-black/10 bg-offwhite/80 p-8 text-center space-y-4 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.6)]">
-        <h2 className="font-heading text-2xl font-bold text-black">Thank You</h2>
-        <p className="text-graphite">
-          We&apos;ve received your inquiry and will be in touch shortly. All communications are
-          confidential.
-        </p>
+      <div className="space-y-3 py-10">
+        <p className="eyebrow">Thank you</p>
+        <p className="font-heading text-4xl font-light text-black">Your message is with us.</p>
+        <p className="text-graphite">We will come back to you personally, with discretion.</p>
       </div>
     )
   }
 
-  const userTypes = [
-    { value: 'developer', label: 'Developer' },
-    { value: 'investor', label: 'Investor' },
-    { value: 'partner', label: 'Partner' },
-    { value: 'press', label: 'Press' },
-    { value: 'broker', label: 'Broker' },
-    { value: 'landowner', label: 'Landowner' },
-    { value: 'other', label: 'Other' },
-  ] as const
-
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
-      {error && (
-        <div className="bg-red-50 border border-red-200 rounded-2xl p-4 text-red-800 text-sm">
-          {error}
-        </div>
-      )}
-
-      <div className="rounded-2xl border border-black/10 bg-offwhite/60 p-6 shadow-[0_20px_50px_-40px_rgba(0,0,0,0.5)]">
-        <div className="flex items-center gap-3">
-          <span className="flex h-7 w-7 items-center justify-center rounded-full border border-black/10 bg-white text-xs font-semibold text-black">
-            1
-          </span>
-          <p className="text-xs uppercase tracking-[0.3em] text-black/60">Contact Details</p>
-        </div>
-        <div className="mt-4 grid md:grid-cols-2 gap-6">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-graphite mb-2">
-              Name *
-            </label>
-            <input
-              type="text"
-              id="name"
-              required
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-4 py-3 border border-black/10 rounded-2xl bg-white text-black focus:outline-none focus:ring-2 focus:ring-gold"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-graphite mb-2">
-              Email *
-            </label>
-            <input
-              type="email"
-              id="email"
-              required
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-4 py-3 border border-black/10 rounded-2xl bg-white text-black focus:outline-none focus:ring-2 focus:ring-gold"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="rounded-2xl border border-black/10 bg-offwhite/60 p-6 shadow-[0_20px_50px_-40px_rgba(0,0,0,0.5)]">
-        <div className="flex items-center gap-3">
-          <span className="flex h-7 w-7 items-center justify-center rounded-full border border-black/10 bg-white text-xs font-semibold text-black">
-            2
-          </span>
-          <p className="text-xs uppercase tracking-[0.3em] text-black/60">Professional</p>
-        </div>
-        <div className="mt-4 grid md:grid-cols-3 gap-6">
-          <div>
-            <label htmlFor="company" className="block text-sm font-medium text-graphite mb-2">
-              Company
-            </label>
-            <input
-              type="text"
-              id="company"
-              value={formData.company}
-              onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-              className="w-full px-4 py-3 border border-black/10 rounded-2xl bg-white text-black focus:outline-none focus:ring-2 focus:ring-gold"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="role" className="block text-sm font-medium text-graphite mb-2">
-              Role
-            </label>
-            <input
-              type="text"
-              id="role"
-              value={formData.role}
-              onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-              className="w-full px-4 py-3 border border-black/10 rounded-2xl bg-white text-black focus:outline-none focus:ring-2 focus:ring-gold"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-graphite mb-2">
-              Phone (optional)
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full px-4 py-3 border border-black/10 rounded-2xl bg-white text-black focus:outline-none focus:ring-2 focus:ring-gold"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="rounded-2xl border border-black/10 bg-white p-6 shadow-[0_20px_50px_-40px_rgba(0,0,0,0.5)]">
-        <div className="flex items-center gap-3">
-          <span className="flex h-7 w-7 items-center justify-center rounded-full border border-black/10 bg-offwhite text-xs font-semibold text-black">
-            3
-          </span>
-          <p className="text-xs uppercase tracking-[0.3em] text-black/60">I am a</p>
-        </div>
-        <div className="mt-4 flex flex-wrap gap-3">
-          {userTypes.map((type) => {
-            const isActive = formData.userType === type.value
+    <form onSubmit={onSubmit} className="space-y-10">
+      <fieldset>
+        <legend className="eyebrow mb-5">I am</legend>
+        <div className="flex flex-wrap gap-2">
+          {userTypes.map((t) => {
+            const active = form.userType === t.value
             return (
               <button
-                key={type.value}
+                key={t.value}
                 type="button"
-                aria-pressed={isActive}
-                onClick={() => setFormData({ ...formData, userType: type.value })}
-                className={`rounded-full border px-4 py-2 text-xs uppercase tracking-[0.25em] transition-colors ${
-                  isActive
-                    ? 'border-black bg-black text-offwhite'
-                    : 'border-black/10 bg-offwhite text-black hover:border-black/30'
+                aria-pressed={active}
+                onClick={() => setForm({ ...form, userType: t.value })}
+                className={`border px-4 py-2.5 text-[10px] uppercase tracking-[0.28em] transition-colors ${
+                  active ? 'border-black bg-black text-offwhite' : 'border-black/20 text-black hover:border-black/60'
                 }`}
               >
-                {type.label}
+                {t.label}
               </button>
             )
           })}
         </div>
+      </fieldset>
+
+      <div className="grid gap-6 md:grid-cols-2">
+        <input required placeholder="Full name *" value={form.name} onChange={update('name')} className={field} />
+        <input required type="email" placeholder="Email *" value={form.email} onChange={update('email')} className={field} />
+        <input placeholder="Phone" value={form.phone} onChange={update('phone')} className={field} />
+        <input placeholder="Company" value={form.company} onChange={update('company')} className={field} />
+        <input placeholder="Role" value={form.role} onChange={update('role')} className={field} />
+        {withProject.includes(form.userType) ? (
+          <input placeholder="Project location" value={form.projectLocation} onChange={update('projectLocation')} className={field} />
+        ) : (
+          <span className="hidden md:block" />
+        )}
       </div>
-
-      <div className="rounded-2xl border border-black/10 bg-offwhite/60 p-6 shadow-[0_20px_50px_-40px_rgba(0,0,0,0.5)]">
-        <div className="flex items-center gap-3">
-          <span className="flex h-7 w-7 items-center justify-center rounded-full border border-black/10 bg-white text-xs font-semibold text-black">
-            4
-          </span>
-          <p className="text-xs uppercase tracking-[0.3em] text-black/60">Message</p>
-        </div>
-        <div className="mt-4">
-          <label htmlFor="message" className="block text-sm font-medium text-graphite mb-2">
-            Tell us how we can help
-          </label>
-          <textarea
-            id="message"
-            rows={6}
-            value={formData.message}
-            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-            placeholder="Example: press request, partnership idea, investment interest, or project overview."
-            className="w-full px-4 py-3 border border-black/10 rounded-2xl bg-white text-black focus:outline-none focus:ring-2 focus:ring-gold"
-          />
-        </div>
-      </div>
-
-      <input type="hidden" value={formData.projectLocation} readOnly />
-      <input type="hidden" value={formData.assetType} readOnly />
-      <input type="hidden" value={formData.gdvRange} readOnly />
-      <input type="hidden" value={formData.timeline} readOnly />
-
-      {/* Honeypot */}
+      <textarea
+        rows={4}
+        placeholder="Your message"
+        value={form.message}
+        onChange={update('message')}
+        className={field}
+      />
       <input
         type="text"
-        name="website"
-        value={formData.honeypot}
-        onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
-        className="hidden"
         tabIndex={-1}
         autoComplete="off"
+        value={form.honeypot}
+        onChange={update('honeypot')}
+        className="hidden"
+        aria-hidden="true"
       />
-
-      <button
-        type="submit"
-        disabled={mutation.isLoading}
-        className="w-full px-8 py-4 bg-black text-offwhite rounded-2xl font-medium hover:bg-graphite transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {mutation.isLoading ? 'Submitting...' : 'Submit Inquiry'}
-      </button>
-
-      <p className="text-graphite text-xs text-center">
-        All submissions are confidential and handled with discretion.
-      </p>
+      {error && <p className="text-sm text-red-700">{error}</p>}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="max-w-sm text-xs text-muted">Every enquiry is read personally and handled in confidence.</p>
+        <button
+          type="submit"
+          disabled={mutation.isLoading}
+          className="bg-black px-10 py-4 text-[11px] font-medium uppercase tracking-[0.3em] text-offwhite transition-colors hover:bg-bronze disabled:opacity-60"
+        >
+          {mutation.isLoading ? 'Sending…' : 'Send'}
+        </button>
+      </div>
     </form>
   )
 }
