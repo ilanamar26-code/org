@@ -5,6 +5,6 @@ export const site = {
   city: 'Dubai, United Arab Emirates',
   social: {
     instagram: 'https://www.instagram.com/orlinskirealtygroup',
-    linkedin: '',
+    linkedin: 'https://www.linkedin.com/company/orlinski-realty-group',
   },
 }
