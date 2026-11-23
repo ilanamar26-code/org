@@ -78,7 +78,7 @@ export const orlinskiBay = {
     name: "L'Atelier",
     address: '31 Irodotou Street, Kolonaki, Athens',
     opening: 'Tuesday 1 December 2026',
-    email: 'contact@orlinskirealtygroup.com',
+    email: 'ilan@orlinskirealtygroup.com',
   },
   quotes: [
     {

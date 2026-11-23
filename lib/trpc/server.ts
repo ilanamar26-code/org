@@ -78,9 +78,9 @@ export const appRouter = router({
       }
 
       if (!emailed && !stored) {
-        throw new Error('We could not send your request. Please e-mail contact@orlinskirealtygroup.com.')
+        throw new Error('We could not send your request. Please e-mail ilan@orlinskirealtygroup.com.')
       }
-      return { success: true }
+      return { success: true, emailed, stored }
     }),
 })
 
