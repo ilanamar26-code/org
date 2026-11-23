@@ -112,9 +112,6 @@ export default function DevelopersPage() {
                   </div>
                 ))}
               </div>
-              <Link href="/orlinski-bay" className="text-[11px] uppercase tracking-[0.3em] text-sand hover:text-white">
-                See the project →
-              </Link>
             </div>
           </Reveal>
         </div>

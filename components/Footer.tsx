@@ -3,9 +3,8 @@ import { site } from '@/lib/site'
 import { orlinskiBay as ob } from '@/lib/orlinski-bay'
 
 const explore = [
-  { label: 'Orlinski Bay', href: '/orlinski-bay' },
   { label: 'For developers', href: '/developers' },
-  { label: 'Projects', href: '/projects' },
+  { label: 'Concepts', href: '/concepts' },
   { label: 'Richard Orlinski', href: '/brands' },
   { label: 'Press', href: '/press' },
   { label: 'About', href: '/about' },
@@ -21,7 +20,7 @@ export function Footer() {
   return (
     <footer className="stone-dark text-offwhite">
       <div className="mx-auto max-w-screen-2xl px-6 pb-10 pt-24 md:px-12">
-        <p className="max-w-6xl font-heading text-[clamp(2.6rem,7vw,6.5rem)] font-light leading-[0.95] text-white [text-wrap:balance]">
+        <p className="whitespace-nowrap font-heading text-[clamp(1.5rem,5.6vw,6rem)] font-light leading-none text-white">
           Where real estate <span className="italic text-sand">becomes art.</span>
         </p>
 
@@ -57,7 +56,7 @@ export function Footer() {
               Opening {ob.atelier.opening}
             </p>
             <Link
-              href="/orlinski-bay#register"
+              href="/#register"
               className="mt-5 inline-block border-b border-white/40 pb-1 text-[11px] uppercase tracking-[0.3em] text-white hover:border-sand hover:text-sand"
             >
               Register your interest

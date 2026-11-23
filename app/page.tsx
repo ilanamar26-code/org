@@ -10,6 +10,7 @@ import { pressReleases } from '@/lib/press-releases'
 import { CountUp } from '@/components/motion/CountUp'
 import { Marquee } from '@/components/motion/Marquee'
 import { FilmSection } from '@/components/motion/FilmSection'
+import { RegisterInterestForm } from '@/components/RegisterInterestForm'
 
 const gallery = [
   { src: ob.images.villaPool, title: 'The villa', caption: 'A sculpted shell of stone, opened to the sea.' },
@@ -35,12 +36,12 @@ export default function HomePage() {
               Ten villas signed by Richard Orlinski. Amoni, Greece.
             </p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-5 whitespace-nowrap">
-              <Link
-                href="/orlinski-bay"
+              <a
+                href="#register"
                 className="bg-white px-8 py-4 text-[11px] uppercase tracking-[0.3em] text-black transition-colors hover:bg-bronze hover:text-white"
               >
-                Enter Orlinski Bay
-              </Link>
+                Register your interest
+              </a>
               <FilmButton src={ob.film.src} poster={ob.film.poster} label="The film" />
             </div>
           </div>
@@ -107,24 +108,34 @@ export default function HomePage() {
       <HorizontalGallery eyebrow="Inside Orlinski Bay" title="Stone, bronze and the sea." slides={gallery} />
 
       {/* 7. Register */}
-      <section className="full-bleed relative h-[90vh] min-h-[560px] overflow-hidden">
-        <Image src={ob.images.night} alt="Orlinski Bay at night" fill sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 bg-black/55" />
-        <div className="relative z-10 mx-auto flex h-full max-w-[1000px] flex-col items-center justify-center px-6 text-center">
-          <Reveal>
-            <p className="eyebrow !text-sand">Private presentation · Athens</p>
-          </Reveal>
-          <h2 className="mt-8 font-heading text-[clamp(2.6rem,6vw,6rem)] font-light leading-[1] text-white">
-            <WordReveal text="Own a piece of Orlinski Bay." />
-          </h2>
-          <Reveal delay={0.25}>
-            <Link
-              href="/orlinski-bay#register"
-              className="mt-12 inline-block bg-white px-10 py-5 text-[11px] uppercase tracking-[0.3em] text-black transition-colors hover:bg-bronze hover:text-white"
-            >
-              Register your interest
-            </Link>
-          </Reveal>
+      <section className="full-bleed relative">
+        <Image src={ob.images.night} alt="An Orlinski Bay villa at dusk" fill sizes="100vw" className="object-cover" />
+        <div className="absolute inset-0 bg-black/60" />
+        <div
+          id="register"
+          className="relative z-10 mx-auto grid max-w-screen-2xl scroll-mt-24 gap-12 px-6 py-24 md:px-12 md:py-32 lg:grid-cols-[0.9fr_1.1fr] lg:items-center"
+        >
+          <div className="space-y-6 text-white">
+            <Reveal>
+              <p className="eyebrow !text-sand">L&apos;Atelier · Athens</p>
+            </Reveal>
+            <h2 className="font-heading text-[clamp(2.6rem,4.6vw,4.6rem)] font-light leading-[1.02] text-white">
+              <WordReveal text="Discover Orlinski Bay at L'Atelier." />
+            </h2>
+            <p className="text-lg leading-relaxed text-white/85">
+              The project&apos;s exclusive sales gallery opens on {ob.atelier.opening}, at {ob.atelier.address}. The
+              villas are presented there by appointment, alongside Richard Orlinski works selected for the collection.
+            </p>
+            <p className="text-sm text-white/70">
+              Sales exclusively through L&apos;Atelier ·{' '}
+              <a href={`mailto:${ob.atelier.email}`} className="underline underline-offset-4 hover:text-white">
+                {ob.atelier.email}
+              </a>
+            </p>
+          </div>
+          <div className="bg-ivory p-8 md:p-12">
+            <RegisterInterestForm />
+          </div>
         </div>
       </section>
 

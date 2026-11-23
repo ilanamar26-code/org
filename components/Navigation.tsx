@@ -7,16 +7,15 @@ import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const navItems: { label: string; href: string }[] = [
-  { label: 'Orlinski Bay', href: '/orlinski-bay' },
   { label: 'Developers', href: '/developers' },
-  { label: 'Projects', href: '/projects' },
+  { label: 'Concepts', href: '/concepts' },
   { label: 'Richard Orlinski', href: '/brands' },
   { label: 'Press', href: '/press' },
   { label: 'About', href: '/about' },
 ]
 
 // Pages that open on a full-screen image: the bar sits transparent over it.
-const immersive = ['/', '/orlinski-bay', '/developers']
+const immersive = ['/', '/developers']
 
 export function Navigation() {
   const pathname = usePathname()
@@ -74,7 +73,7 @@ export function Navigation() {
             )
           })}
           <Link
-            href="/orlinski-bay#register"
+            href="/#register"
             className={cn(
               'border px-5 py-2.5 text-[11px] uppercase tracking-[0.28em] transition-colors',
               overImage
@@ -104,7 +103,7 @@ export function Navigation() {
             </Link>
           </div>
           <Link
-            href="/orlinski-bay#register"
+            href="/#register"
             className="bg-black px-6 py-4 text-center text-[11px] uppercase tracking-[0.3em] text-offwhite"
           >
             Register your interest

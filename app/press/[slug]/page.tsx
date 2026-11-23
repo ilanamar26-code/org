@@ -106,7 +106,7 @@ export default function PressReleasePage({ params }: { params: { slug: string } 
             </ul>
           </div>
           <Link
-            href="/orlinski-bay"
+            href="/"
             className="block bg-black px-6 py-4 text-center text-[11px] uppercase tracking-[0.3em] text-offwhite hover:bg-bronze"
           >
             Discover Orlinski Bay

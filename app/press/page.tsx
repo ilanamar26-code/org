@@ -22,6 +22,7 @@ export default async function PressPage() {
     date: item.publishedAt || item.date,
     url: item.url || item.link,
   }))
+  coverage.sort((a: any, b: any) => (b.date || '').localeCompare(a.date || ''))
   const [lead, ...others] = pressReleases
 
   return (
@@ -39,97 +40,102 @@ export default async function PressPage() {
         </p>
       </header>
 
-      {/* Lead release */}
-      {lead && (
-      <Reveal>
-        <Link href={`/press/${lead.slug}`} className="group grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-          <div className="relative aspect-[16/11] overflow-hidden bg-sand">
-            <Image
-              src={lead.image}
-              alt={lead.title}
-              fill
-              sizes="(min-width: 1024px) 60vw, 100vw"
-              className="object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.03]"
-              priority
-            />
+      {/* I. Orlinski Bay */}
+      <section className="space-y-12">
+        <div className="flex flex-col gap-4 border-b border-black/15 pb-8 md:flex-row md:items-end md:justify-between">
+          <div className="space-y-4">
+            <p className="eyebrow">I · 2026</p>
+            <h2 className="font-heading text-[clamp(2.6rem,5vw,4.6rem)] font-light leading-[1] text-black">
+              Orlinski Bay <span className="italic text-bronze">· Amoni</span>
+            </h2>
           </div>
-          <div className="space-y-6">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-muted">
-              Press release · {fmt(lead.date)}
-            </p>
-            <h2 className="font-heading text-3xl font-light leading-tight text-black md:text-4xl">{lead.title}</h2>
-            <p className="text-graphite">{lead.subtitle}</p>
-            <span className="inline-block border-b border-black pb-1 text-[11px] uppercase tracking-[0.3em] group-hover:border-bronze group-hover:text-bronze">
-              Read the release
-            </span>
-          </div>
-        </Link>
-      </Reveal>
-      )}
+          <p className="max-w-sm text-sm text-graphite">
+            Ten villas signed by Richard Orlinski on the Greek coast, with Liakos Associates Architects and KAMAI Group.
+          </p>
+        </div>
 
-      {others.length > 0 && (
-        <section className="space-y-6">
-          {others.map((r) => (
-            <Link key={r.slug} href={`/press/${r.slug}`} className="block border-t border-black/15 py-6 hover:text-bronze">
-              <p className="text-[10px] uppercase tracking-[0.3em] text-muted">{fmt(r.date)}</p>
-              <p className="mt-2 font-heading text-2xl">{r.title}</p>
+        {lead && (
+          <Reveal>
+            <Link href={`/press/${lead.slug}`} className="group grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+              <div className="relative aspect-[16/11] overflow-hidden bg-sand">
+                <Image src={lead.image} alt={lead.title} fill sizes="(min-width: 1024px) 60vw, 100vw" className="object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.03]" />
+              </div>
+              <div className="space-y-6">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-muted">Press release · {fmt(lead.date)}</p>
+                <h3 className="font-heading text-3xl font-light leading-tight text-black md:text-4xl">{lead.title}</h3>
+                <p className="text-graphite">{lead.subtitle}</p>
+                <span className="inline-block border-b border-black pb-1 text-[11px] uppercase tracking-[0.3em] group-hover:border-bronze group-hover:text-bronze">Read the release</span>
+              </div>
             </Link>
-          ))}
-        </section>
-      )}
+          </Reveal>
+        )}
+        {others.map((r) => (
+          <Link key={r.slug} href={`/press/${r.slug}`} className="block border-t border-black/15 py-6 hover:text-bronze">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-muted">{fmt(r.date)}</p>
+            <p className="mt-2 font-heading text-2xl">{r.title}</p>
+          </Link>
+        ))}
 
-      {/* Press kit */}
-      <section className="full-bleed bg-black text-offwhite">
-        <div className="mx-auto grid max-w-[1200px] gap-12 px-6 py-20 md:grid-cols-[0.8fr_1.2fr] md:px-2">
-          <div className="space-y-5">
-            <p className="eyebrow !text-sand">Press kit</p>
-            <h2 className="font-heading text-4xl font-light text-white">Orlinski Bay · Amoni</h2>
-            <p className="text-stone">
-              Images are non-contractual artist&apos;s impressions by Liakos Associates Architects. Credit: Richard
-              Orlinski × Liakos. Areas are indicative.
-            </p>
+        <div className="full-bleed bg-black text-offwhite">
+          <div className="mx-auto grid max-w-[1200px] gap-12 px-6 py-16 md:grid-cols-[0.8fr_1.2fr] md:px-2">
+            <div className="space-y-5">
+              <p className="eyebrow !text-sand">Press kit</p>
+              <h3 className="font-heading text-4xl font-light text-white">Orlinski Bay · Amoni</h3>
+              <p className="text-stone">
+                Images are non-contractual artist&apos;s impressions by Liakos Associates Architects. Credit: Richard
+                Orlinski × Liakos. Areas are indicative.
+              </p>
+            </div>
+            <ul className="divide-y divide-white/15 border-y border-white/15">
+              {pressKit.map((k) => (
+                <li key={k.label}>
+                  <a href={k.href} download={k.href.startsWith('/press-kit') || k.href.endsWith('.svg') || k.href.endsWith('.mp4') ? '' : undefined} className="group flex items-center justify-between py-5">
+                    <span className="font-heading text-2xl text-white group-hover:text-sand">{k.label}</span>
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-stone">{k.detail} ↓</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="divide-y divide-white/15 border-y border-white/15">
-            {pressKit.map((k) => (
-              <li key={k.label}>
-                <a
-                  href={k.href}
-                  download={k.href.startsWith('/press-kit') || k.href.endsWith('.svg') || k.href.endsWith('.mp4') ? '' : undefined}
-                  className="group flex items-center justify-between py-5"
-                >
-                  <span className="font-heading text-2xl text-white group-hover:text-sand">{k.label}</span>
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-stone">{k.detail} ↓</span>
-                </a>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
-      {/* Coverage */}
-      <section className="space-y-10">
-        <div className="flex items-end justify-between">
-          <div className="space-y-4">
-            <p className="eyebrow">In the media</p>
-            <h2 className="font-heading text-4xl font-light text-black md:text-5xl">Coverage</h2>
+      {/* II. The beginning */}
+      <section className="space-y-12">
+        <div className="grid gap-10 border-b border-black/15 pb-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <div className="space-y-5">
+            <p className="eyebrow">II · 2025</p>
+            <h2 className="font-heading text-[clamp(2.6rem,5vw,4.6rem)] font-light leading-[1] text-black">
+              The <span className="italic text-bronze">beginning.</span>
+            </h2>
+            <p className="max-w-md text-graphite">
+              October 2025, Dubai: Richard Orlinski and Orlinski Realty Group launch the first art-driven branded
+              real estate house in the Middle East. How the press told the story.
+            </p>
+          </div>
+          <div className="relative aspect-video overflow-hidden bg-black">
+            <video src="/videos/org-launch-subtitled.mp4" controls playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover" />
           </div>
         </div>
-        <ul className="border-t border-black/15">
+
+        <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {coverage.map((c: any, i: number) => (
-            <li key={i} className="border-b border-black/15">
-              <a
-                href={c.url?.startsWith('http') ? c.url : `https://${c.url}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group grid gap-2 py-6 md:grid-cols-[200px_1fr_120px] md:items-baseline"
-              >
-                <span className="text-[10px] uppercase tracking-[0.3em] text-muted">{c.publisher}</span>
-                <span className="font-heading text-2xl text-black transition-colors group-hover:text-bronze">{c.title}</span>
-                <span className="text-sm text-muted md:text-right">{c.date ? fmt(c.date) : ''}</span>
+            <Reveal key={i} delay={(i % 3) * 0.06}>
+              <a href={c.url?.startsWith('http') ? c.url : `https://${c.url}`} target="_blank" rel="noopener noreferrer" className="group block">
+                <div className="relative aspect-[3/2] overflow-hidden bg-sand">
+                  <div className="stone-beige absolute inset-0 flex items-center justify-center p-6 text-center transition-transform duration-700 group-hover:scale-[1.04]">
+                    <span className="font-heading text-3xl italic text-graphite">{c.publisher}</span>
+                  </div>
+                </div>
+                <p className="mt-5 text-[10px] uppercase tracking-[0.3em] text-muted">
+                  {c.publisher}
+                  {c.date ? ` · ${fmt(c.date)}` : ''}
+                </p>
+                <p className="mt-2 font-heading text-2xl leading-snug text-black transition-colors group-hover:text-bronze">{c.title}</p>
               </a>
-            </li>
+            </Reveal>
           ))}
-        </ul>
+        </div>
       </section>
     </div>
   )
