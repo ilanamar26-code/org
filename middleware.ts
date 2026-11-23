@@ -4,6 +4,14 @@ import { ADMIN_COOKIE, isAuthed } from '@/lib/admin/auth'
 // Protects the back office: /admin (UI), /backoffice/* (its static app) and /api/admin/* (data).
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
+  // admin.orlinskirealtygroup.com serves the back office at its root.
+  const host = (req.headers.get('host') || '').toLowerCase()
+  if (host.startsWith('admin.') && pathname === '/') {
+    const url = req.nextUrl.clone()
+    url.pathname = '/admin'
+    return NextResponse.redirect(url)
+  }
+  if (pathname === '/') return NextResponse.next()
   if (pathname === '/api/admin/login' || pathname === '/backoffice/login.html') return NextResponse.next()
   const ok = await isAuthed(req.cookies.get(ADMIN_COOKIE)?.value)
   if (pathname.startsWith('/api/admin')) {
@@ -26,4 +34,4 @@ export async function middleware(req: NextRequest) {
   return NextResponse.next()
 }
 
-export const config = { matcher: ['/admin', '/admin/', '/backoffice/:path*', '/api/admin/:path*'] }
+export const config = { matcher: ['/', '/admin', '/admin/', '/backoffice/:path*', '/api/admin/:path*'] }

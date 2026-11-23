@@ -3,6 +3,7 @@ import superjson from 'superjson'
 import { z } from 'zod'
 import { notifyLead } from '@/lib/notify'
 import { supabase } from '../supabase'
+import { adminDb } from '@/lib/admin/db'
 
 const t = initTRPC.context().create({
   transformer: superjson,
@@ -59,8 +60,10 @@ export const appRouter = router({
       })
 
       let stored = false
-      if (supabase) {
-        const { error } = await supabase.from('qualification_submissions').insert({
+      // Prefer the server key (no RLS dependency); fall back to the public key.
+      const db = adminDb() || supabase
+      if (db) {
+        const { error } = await db.from('qualification_submissions').insert({
           name: input.name,
           email: input.email,
           company: input.company,
