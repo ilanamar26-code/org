@@ -54,7 +54,7 @@ export function FilmSection({
         </div>
 
         <Reveal>
-          <div className="group relative aspect-[1024/500] w-full overflow-hidden bg-black shadow-[0_40px_120px_-40px_rgba(0,0,0,0.7)]">
+          <div className="group relative aspect-[1920/928] w-full overflow-hidden bg-black shadow-[0_40px_120px_-40px_rgba(0,0,0,0.7)]">
             <video
               ref={ref}
               src={src}
