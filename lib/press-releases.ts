@@ -17,7 +17,7 @@ export type PressRelease = {
 export const pressReleases: PressRelease[] = []
 
 export const aboutOrg =
-  'Orlinski Realty Group (ORG) is the exclusive real estate licensee of the Richard Orlinski brand. Headquartered in Dubai and founded by Ilan Amar and Michael Cohen, ORG partners with developers to create art-driven branded residences and hospitality, bringing artistic direction, brand identity, storytelling and original Orlinski works to each project. Where real estate becomes art.'
+  'Orlinski Realty Group (ORG) is the art-driven branded real estate house of Richard Orlinski. Headquartered in Dubai and founded by Ilan Amar and Michael Cohen, ORG partners with developers to create art-driven branded residences and hospitality, bringing artistic direction, brand identity, storytelling and original Orlinski works to each project. Where real estate becomes art.'
 
 export const mediaContact = 'ilan@orlinskirealtygroup.com'
 

@@ -29,7 +29,7 @@ export function Footer() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo/2027/org-h-creme.svg" alt="Orlinski Realty Group" className="h-14 w-auto" />
             <p className="max-w-xs text-sm leading-relaxed text-stone">
-              The exclusive real estate licensee of Richard Orlinski. Art-driven branded residences, villas and hospitality.
+              Art-driven branded real estate signed Richard Orlinski: residences, towers, hotels and villas.
             </p>
           </div>
 
