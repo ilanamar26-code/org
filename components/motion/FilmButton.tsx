@@ -4,17 +4,22 @@ import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Play, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useIsMobile } from './useIsMobile'
 
 /** "Watch the film" trigger that opens the project film full screen. */
 export function FilmButton({
   src,
   poster,
+  mobileSrc,
+  mobilePoster,
   label = 'Watch the film',
   light = true,
   className,
 }: {
   src: string
   poster?: string
+  mobileSrc?: string
+  mobilePoster?: string
   label?: string
   light?: boolean
   className?: string
@@ -22,6 +27,9 @@ export function FilmButton({
   const [open, setOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const video = useRef<HTMLVideoElement>(null)
+  const mobile = useIsMobile()
+  const vSrc = mobile && mobileSrc ? mobileSrc : src
+  const vPoster = mobile && mobileSrc ? mobilePoster : poster
 
   useEffect(() => setMounted(true), [])
   useEffect(() => {
@@ -72,11 +80,11 @@ export function FilmButton({
             </button>
             <video
               ref={video}
-              src={src}
-              poster={poster}
+              src={vSrc}
+              poster={vPoster}
               controls
               playsInline
-              className="max-h-full w-full max-w-6xl"
+              className={mobile && mobileSrc ? 'max-h-full w-auto max-w-full' : 'max-h-full w-full max-w-6xl'}
               onClick={(e) => e.stopPropagation()}
             />
           </div>,

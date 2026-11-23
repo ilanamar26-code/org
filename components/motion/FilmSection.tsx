@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { FilmButton } from './FilmButton'
 import { Reveal } from './Reveal'
+import { useIsMobile } from './useIsMobile'
 
 /**
  * Wide film slot. Plays a silent loop of the project film in a cinema-ratio frame,
@@ -12,17 +13,25 @@ import { Reveal } from './Reveal'
 export function FilmSection({
   src,
   poster,
+  mobileSrc,
+  mobilePoster,
   eyebrow = 'The film',
   title,
   caption,
 }: {
   src: string
   poster: string
+  mobileSrc?: string
+  mobilePoster?: string
   eyebrow?: string
   title: React.ReactNode
   caption?: string
 }) {
   const ref = useRef<HTMLVideoElement>(null)
+  const mobile = useIsMobile()
+  const vertical = mobile && !!mobileSrc
+  const vSrc = vertical ? mobileSrc! : src
+  const vPoster = vertical ? mobilePoster || poster : poster
 
   useEffect(() => {
     const v = ref.current
@@ -34,7 +43,7 @@ export function FilmSection({
     )
     io.observe(v)
     return () => io.disconnect()
-  }, [])
+  }, [vSrc])
 
   return (
     <section className="full-bleed stone-dark stone-fixed relative py-24 md:py-36">
@@ -54,11 +63,12 @@ export function FilmSection({
         </div>
 
         <Reveal>
-          <div className="group relative aspect-[1920/928] w-full overflow-hidden bg-black shadow-[0_40px_120px_-40px_rgba(0,0,0,0.7)]">
+          <div className={`group relative w-full overflow-hidden bg-black shadow-[0_40px_120px_-40px_rgba(0,0,0,0.7)] ${vertical ? 'mx-auto aspect-[9/16] max-h-[82svh] max-w-[calc(82svh*9/16)]' : 'aspect-[1920/928]'}`}>
             <video
               ref={ref}
-              src={src}
-              poster={poster}
+              key={vSrc}
+              src={vSrc}
+              poster={vPoster}
               muted
               loop
               playsInline
@@ -67,7 +77,7 @@ export function FilmSection({
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10">
-              <FilmButton src={src} poster={poster} label="Watch with sound" />
+              <FilmButton src={src} poster={poster} mobileSrc={mobileSrc} mobilePoster={mobilePoster} label="Watch with sound" />
             </div>
           </div>
         </Reveal>

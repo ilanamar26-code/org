@@ -42,7 +42,7 @@ export default function HomePage() {
               >
                 Start a conversation
               </a>
-              <FilmButton src={ob.film.src} poster={ob.film.poster} label="The film" />
+              <FilmButton src={ob.film.src} poster={ob.film.poster} mobileSrc={ob.film.mobileSrc} mobilePoster={ob.film.mobilePoster} label="The film" />
             </div>
           </div>
         </div>
@@ -72,6 +72,8 @@ export default function HomePage() {
       <FilmSection
         src={ob.film.src}
         poster={ob.film.poster}
+        mobileSrc={ob.film.mobileSrc}
+        mobilePoster={ob.film.mobilePoster}
         title={<>From rock <span className="italic text-stone">to art.</span></>}
         caption="Richard Orlinski, Liakos Associates and KAMAI Group on how ten villas are drawn out of a Greek hillside."
       />
