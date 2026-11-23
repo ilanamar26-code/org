@@ -76,44 +76,51 @@ export default function HomePage() {
         caption="Richard Orlinski, Liakos Associates and KAMAI Group on how ten villas are drawn out of a Greek hillside."
       />
 
-      {/* The rock */}
-      <section className="mx-auto max-w-[1300px] px-2 py-28 md:py-40">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:items-end">
-          <div className="space-y-8 lg:pb-6">
+      {/* The rock: split, big image left, three moments right on faceted stone */}
+      <section className="full-bleed grid lg:min-h-[100svh] lg:grid-cols-2">
+        <div className="relative min-h-[70svh] overflow-hidden lg:min-h-full">
+          <RevealFrame className="absolute inset-0">
+            <Image src={ob.images.heroCliff} alt="An Orlinski Bay villa set into the cliff above the Saronic Gulf" fill sizes="(min-width:1024px) 50vw, 100vw" className="object-cover" />
+          </RevealFrame>
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/45 to-transparent" />
+          <p className="absolute bottom-8 left-6 text-[10px] uppercase tracking-[0.35em] text-offwhite/90 md:left-12">Amoni · the cliff</p>
+        </div>
+
+        <div className="stone-beige flex items-center px-6 py-24 md:px-16 lg:py-32 xl:px-24">
+          <div className="w-full max-w-xl">
             <Reveal>
               <p className="eyebrow">The rock</p>
             </Reveal>
-            <h2 className="font-heading text-[clamp(2.4rem,4.8vw,4.6rem)] font-light leading-[1.02] text-black">
-              <WordReveal text="Carved, not placed." />
-              <br />
-              <WordReveal text="Every villa keeps its stone." className="italic text-bronze" />
+            <h2 className="mt-6 font-heading text-[clamp(2.6rem,4.4vw,4.4rem)] font-light leading-[1.02] text-black">
+              Carved, <span className="italic text-bronze">not placed.</span>
             </h2>
-            <Reveal delay={0.15}>
-              <p className="max-w-md text-lg leading-relaxed text-graphite">
-                Orlinski reads the hillside the way he reads a raw block: facet by facet. The rock stays where it is.
-                You arrive through it, sleep against it and bathe beside it.
+            <Reveal delay={0.1}>
+              <p className="mt-6 text-lg leading-relaxed text-graphite">
+                Orlinski reads the hillside the way he reads a raw block, facet by facet. The rock stays where it is, and every villa is drawn around it.
               </p>
             </Reveal>
+
+            <ol className="mt-14 divide-y divide-black/10 border-y border-black/10">
+              {[
+                { n: '01', t: 'Arrive through it', d: 'A bronze door set into the raw rock face.', src: ob.images.entrance },
+                { n: '02', t: 'Sleep against it', d: 'Suites built on the natural rock wall.', src: ob.images.suite },
+                { n: '03', t: 'Bathe beside it', d: 'Baths that open onto the gulf.', src: ob.images.bath },
+              ].map((m, i) => (
+                <Reveal key={m.n} delay={0.1 + i * 0.08}>
+                  <li className="group flex items-center gap-6 py-6">
+                    <span className="w-8 shrink-0 font-heading text-lg italic text-bronze">{m.n}</span>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-heading text-2xl text-black md:text-[1.7rem]">{m.t}</p>
+                      <p className="mt-1 text-sm text-muted">{m.d}</p>
+                    </div>
+                    <div className="relative h-20 w-28 shrink-0 overflow-hidden md:h-24 md:w-36">
+                      <Image src={m.src} alt="" fill sizes="144px" className="object-cover transition-transform duration-700 group-hover:scale-[1.06]" />
+                    </div>
+                  </li>
+                </Reveal>
+              ))}
+            </ol>
           </div>
-          <RevealFrame className="relative aspect-[1024/500] w-full">
-            <Image src="/images/amoni/film-rock-villa.jpg" alt="The Amoni rock, traced into the facets of a villa" fill sizes="(min-width:1024px) 60vw, 100vw" className="object-cover" />
-          </RevealFrame>
-        </div>
-        <div className="mt-6 grid gap-6 md:mt-10 md:grid-cols-3">
-          {[
-            { src: ob.images.heroCliff, alt: 'A villa set into the cliff above the Saronic Gulf', l: 'On the cliff', aspect: 'aspect-[4/5]' },
-            { src: ob.images.entrance, alt: 'A bronze door set into the raw rock face', l: 'Through the rock', aspect: 'aspect-[4/5] md:mt-20' },
-            { src: ob.images.suite, alt: 'A suite built against the natural rock wall', l: 'Against the stone', aspect: 'aspect-[4/5]' },
-          ].map((p, i) => (
-            <Reveal key={p.l} delay={i * 0.1}>
-              <figure>
-                <RevealFrame className={`relative w-full ${p.aspect}`}>
-                  <Image src={p.src} alt={p.alt} fill sizes="(min-width:768px) 33vw, 100vw" className="object-cover" />
-                </RevealFrame>
-                <figcaption className="mt-4 text-[10px] uppercase tracking-[0.3em] text-muted">{p.l}</figcaption>
-              </figure>
-            </Reveal>
-          ))}
         </div>
       </section>
 
