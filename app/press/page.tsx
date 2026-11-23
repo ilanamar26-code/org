@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { getAllPressItems } from '@/lib/sanity'
 import { pressData } from '@/lib/press-data'
+import { getOgImage } from '@/lib/og-image'
 import { pressReleases, pressKit, mediaContact } from '@/lib/press-releases'
 import { Reveal } from '@/components/motion/Reveal'
 
@@ -11,17 +12,29 @@ export const metadata: Metadata = {
   description: 'Press releases, press kit and media coverage of Orlinski Realty Group and Orlinski Bay, Amoni.',
 }
 
+export const revalidate = 86400
+
 const fmt = (iso: string) =>
   new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
 
 export default async function PressPage() {
   const sanityPressItems = await getAllPressItems()
-  const coverage = (sanityPressItems.length > 0 ? sanityPressItems : pressData).map((item: any) => ({
-    title: item.title || item.headline,
-    publisher: item.publisher || item.source,
-    date: item.publishedAt || item.date,
-    url: item.url || item.link,
-  }))
+  const items = sanityPressItems.length > 0 ? sanityPressItems : pressData
+  const coverage = await Promise.all(
+    items.map(async (item: any) => {
+      const url = item.url || item.link
+      let image: string | null = item.featuredImage || item.ogImageUrl || null
+      if (!image && url) image = await getOgImage(url).catch(() => null)
+      if (image && image.includes('static.zawya.com')) image = null
+      return {
+        title: item.title || item.headline,
+        publisher: item.publisher || item.source,
+        date: item.publishedAt || item.date,
+        url,
+        image,
+      }
+    }),
+  )
   coverage.sort((a: any, b: any) => (b.date || '').localeCompare(a.date || ''))
   const [lead, ...others] = pressReleases
 
@@ -123,9 +136,13 @@ export default async function PressPage() {
             <Reveal key={i} delay={(i % 3) * 0.06}>
               <a href={c.url?.startsWith('http') ? c.url : `https://${c.url}`} target="_blank" rel="noopener noreferrer" className="group block">
                 <div className="relative aspect-[3/2] overflow-hidden bg-sand">
-                  <div className="stone-beige absolute inset-0 flex items-center justify-center p-6 text-center transition-transform duration-700 group-hover:scale-[1.04]">
-                    <span className="font-heading text-3xl italic text-graphite">{c.publisher}</span>
-                  </div>
+                  {c.image ? (
+                    <Image src={c.image} alt="" fill sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+                  ) : (
+                    <div className="stone-beige absolute inset-0 flex items-center justify-center p-6 text-center transition-transform duration-700 group-hover:scale-[1.04]">
+                      <span className="font-heading text-3xl italic text-graphite">{c.publisher}</span>
+                    </div>
+                  )}
                 </div>
                 <p className="mt-5 text-[10px] uppercase tracking-[0.3em] text-muted">
                   {c.publisher}

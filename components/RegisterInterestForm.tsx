@@ -86,7 +86,7 @@ export function RegisterInterestForm({ project = 'Orlinski Bay, Amoni' }: { proj
           disabled={mutation.isLoading}
           className="bg-black px-10 py-4 text-[11px] font-medium uppercase tracking-[0.3em] text-offwhite transition-colors hover:bg-bronze disabled:opacity-60"
         >
-          {mutation.isLoading ? 'Sending…' : 'Register your interest'}
+          {mutation.isLoading ? 'Sending…' : 'Start a conversation'}
         </button>
       </div>
     </form>

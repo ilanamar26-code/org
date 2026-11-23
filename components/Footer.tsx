@@ -56,10 +56,10 @@ export function Footer() {
               Opening {ob.atelier.opening}
             </p>
             <Link
-              href="/#register"
+              href="/contact"
               className="mt-5 inline-block border-b border-white/40 pb-1 text-[11px] uppercase tracking-[0.3em] text-white hover:border-sand hover:text-sand"
             >
-              Register your interest
+              Start a conversation
             </Link>
           </div>
 

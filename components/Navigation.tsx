@@ -73,7 +73,7 @@ export function Navigation() {
             )
           })}
           <Link
-            href="/#register"
+            href="/contact"
             className={cn(
               'border px-5 py-2.5 text-[11px] uppercase tracking-[0.28em] transition-colors',
               overImage
@@ -81,7 +81,7 @@ export function Navigation() {
                 : 'border-black bg-black text-offwhite hover:bg-bronze hover:border-bronze',
             )}
           >
-            Register interest
+            Start a conversation
           </Link>
         </div>
 
@@ -103,10 +103,10 @@ export function Navigation() {
             </Link>
           </div>
           <Link
-            href="/#register"
+            href="/contact"
             className="bg-black px-6 py-4 text-center text-[11px] uppercase tracking-[0.3em] text-offwhite"
           >
-            Register your interest
+            Start a conversation
           </Link>
         </div>
       )}

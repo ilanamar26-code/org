@@ -40,7 +40,7 @@ export default function HomePage() {
                 href="#register"
                 className="bg-white px-8 py-4 text-[11px] uppercase tracking-[0.3em] text-black transition-colors hover:bg-bronze hover:text-white"
               >
-                Register your interest
+                Start a conversation
               </a>
               <FilmButton src={ob.film.src} poster={ob.film.poster} label="The film" />
             </div>
