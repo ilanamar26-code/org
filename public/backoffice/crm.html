@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Back office · Orlinski Realty Group</title>
+<link rel="icon" href="/icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2E2925; --graphite:#4A423C; --muted:#6E6358; --bronze:#8A7D70; --greige:#9E9284;
+  --stone:#CCC0B0; --sand:#EBE2D9; --cream:#F4EFE8; --card:#fff; --line:#E2D8CC; --line2:#EFE8DF;
+  --red:#9b3b2c; --red-bg:#F3E1DB; --green:#4f6b4a; --green-bg:#E3EADF; --bronze-bg:#EFE8DE;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:Montserrat,system-ui,sans-serif;font-size:13px;color:var(--ink);background:var(--cream)}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--graphite)}
+header{background:var(--sand);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:20px;padding:0 24px;height:62px;position:sticky;top:0;z-index:20}
+.brand{display:flex;align-items:center;gap:14px;white-space:nowrap}
+.brand img{height:30px}
+.brand span{font-family:"Cormorant Garamond",serif;font-size:19px;color:var(--muted);border-left:1px solid var(--stone);padding-left:14px}
+nav{display:flex;gap:2px;height:100%}
+nav a{color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:7px;padding:0 13px;border-bottom:2px solid transparent;font-weight:600;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase}
+nav a.on{color:var(--ink);border-color:var(--ink)}
+.badge{background:var(--ink);color:var(--cream);border-radius:10px;font-size:10px;padding:1px 6px;letter-spacing:0}
+.search{margin-left:auto}
+.search input{background:#fff;border:1px solid var(--line);padding:8px 12px;width:250px;outline:none}
+.search input:focus{border-color:var(--bronze)}
+.sync{font-size:11px;color:var(--muted);white-space:nowrap}
+.sync i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--stone);margin-right:6px;vertical-align:1px}
+.sync.ok i{background:#7d9a76}.sync.warn i{background:#c08a3e}
+.out{border:0;background:none;color:var(--muted);cursor:pointer;font-size:11px;text-decoration:underline}
+main{padding:22px 24px 40px}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.bar h1{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:32px;margin:0 12px 0 0;line-height:1}
+.seg{display:inline-flex;border:1px solid var(--line);overflow:hidden;background:#fff}
+.seg button{border:0;background:none;padding:7px 12px;cursor:pointer;font-weight:600;font-size:11.5px;color:var(--muted)}
+.seg button.on{background:var(--ink);color:var(--cream)}
+select.f{border:1px solid var(--line);padding:7px 10px;background:#fff}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--cream);padding:8px 14px;font-weight:600;font-size:11.5px;letter-spacing:.06em;cursor:pointer}
+.btn.light{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn.danger{background:#fff;color:var(--red);border-color:#e3c4bb}
+.btn.danger.arm{background:var(--red);color:#fff}
+.sp{flex:1}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:12px;margin-bottom:18px}
+.kpi{background:var(--card);border:1px solid var(--line);padding:14px 16px}
+.kpi .l{font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600}
+.kpi .v{font-family:"Cormorant Garamond",serif;font-size:28px;font-weight:500;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .s{font-size:11px;color:var(--muted);margin-top:2px}
+.kpi.alert .v{color:var(--red)}
+.board{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px;align-items:flex-start}
+.col{background:var(--sand);min-width:272px;width:272px;flex:0 0 auto;display:flex;flex-direction:column;max-height:calc(100vh - 300px)}
+.col.over{outline:2px dashed var(--bronze);outline-offset:-2px}
+.colh{padding:12px 12px 8px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.colh b{font-size:11.5px;letter-spacing:.04em}
+.colh span{font-size:11px;color:var(--muted);text-align:right}
+.cards{overflow-y:auto;padding:0 8px 8px;display:flex;flex-direction:column;gap:7px;min-height:40px}
+.cardd{background:#fff;border:1px solid var(--line);padding:10px 11px;cursor:pointer}
+.cardd:hover{border-color:var(--bronze)}
+.cardd.won{border-left:3px solid var(--green)}.cardd.lost{opacity:.55;border-left:3px solid var(--red)}
+.cardd .t{font-weight:600;font-size:12.5px;line-height:1.35}
+.cardd .m{color:var(--muted);font-size:11.5px;margin-top:3px}
+.cardd .r{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+.tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;background:var(--line2);color:var(--graphite);letter-spacing:.03em}
+.tag.b{background:var(--bronze-bg);color:#5d5146}.tag.red{background:var(--red-bg);color:var(--red)}.tag.green{background:var(--green-bg);color:var(--green)}.tag.ink{background:var(--ink);color:var(--cream)}
+.tw{background:#fff;border:1px solid var(--line);overflow:auto;max-height:calc(100vh - 180px)}
+table{border-collapse:collapse;width:100%}
+th{position:sticky;top:0;background:#FBF8F4;text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line);cursor:pointer;white-space:nowrap;user-select:none}
+th.s:after{content:" ↓"}th.s.asc:after{content:" ↑"}
+td{padding:9px 12px;border-bottom:1px solid var(--line2);vertical-align:top}
+tr.row{cursor:pointer}tr.row:hover td{background:#FBF8F4}
+tr.unread td:first-child{box-shadow:inset 3px 0 0 var(--ink)}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.muted{color:var(--muted)}
+.count{color:var(--muted);font-size:12px}
+.scrim{position:fixed;inset:0;background:rgba(46,41,37,.3);z-index:30;display:none}
+.scrim.on{display:block}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(640px,100vw);background:#fff;z-index:31;transform:translateX(100%);transition:transform .2s ease;display:flex;flex-direction:column;box-shadow:-10px 0 40px rgba(46,41,37,.12)}
+.drawer.on{transform:none}
+.dh{padding:20px 24px 14px;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:flex-start}
+.dh .k{font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--bronze);font-weight:600}
+.dh h2{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:28px;margin:2px 0 0;line-height:1.15}
+.x{margin-left:auto;border:0;background:none;font-size:24px;cursor:pointer;color:var(--muted);line-height:1}
+.db{overflow-y:auto;padding:16px 24px 30px;flex:1}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+.fld label{display:block;font-size:10.5px;color:var(--muted);font-weight:600;margin-bottom:3px;letter-spacing:.03em}
+.fld input,.fld select,.fld textarea{width:100%;border:1px solid var(--line);padding:7px 9px;background:#fff;outline:none}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--bronze)}
+.fld.wide{grid-column:1/-1}
+.ro{background:#FBF8F4;border:1px solid var(--line2);padding:7px 9px;min-height:33px;white-space:pre-wrap;word-break:break-word}
+.sec{margin-top:22px}
+.sec h3{font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;margin:0 0 9px;display:flex;gap:8px;align-items:center}
+.sec h3 span{color:var(--muted);font-weight:500}
+.li{display:flex;justify-content:space-between;gap:10px;padding:8px 10px;border:1px solid var(--line);margin-bottom:6px;cursor:pointer}
+.li:hover{border-color:var(--bronze)}
+.note{border-left:2px solid var(--bronze);background:#FBF8F4;padding:9px 12px;margin-bottom:8px;white-space:pre-wrap;line-height:1.55}
+.note .nm{font-size:11px;color:var(--muted);margin-bottom:4px;display:flex;justify-content:space-between;gap:8px}
+.note .nm a{cursor:pointer;color:var(--muted)}
+.note.long{max-height:220px;overflow:auto}
+.addnote textarea{width:100%;min-height:70px;border:1px solid var(--line);padding:9px;outline:none;resize:vertical}
+.addnote textarea:focus{border-color:var(--bronze)}
+.df{padding:12px 24px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--cream);padding:10px 16px;z-index:50;font-size:12.5px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+.panel{background:#fff;border:1px solid var(--line);padding:28px 30px;max-width:640px;margin:40px auto;line-height:1.6}
+.panel h2{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:28px;margin:0 0 8px}
+.empty{padding:30px;text-align:center;color:var(--muted)}
+@media (max-width:900px){
+  header{flex-wrap:wrap;height:auto;padding:10px 14px;gap:8px}
+  .brand span{display:none}
+  nav{height:40px;order:3;width:100%;overflow-x:auto}
+  .search{margin-left:0;flex:1}.search input{width:100%}
+  main{padding:14px}.grid{grid-template-columns:1fr}.col{max-height:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><img src="/logo/2027/org-h-grege.svg" alt="Orlinski Realty Group"><span>Back office</span></div>
+  <nav id="nav">
+    <a href="#demandes" data-v="demandes">Demandes <span class="badge" id="nb" hidden></span></a>
+    <a href="#pipeline" data-v="pipeline">Pipeline</a>
+    <a href="#affaires" data-v="affaires">Affaires</a>
+    <a href="#organisations" data-v="organisations">Organisations</a>
+    <a href="#contacts" data-v="contacts">Contacts</a>
+  </nav>
+  <div class="search"><input id="q" placeholder="Rechercher…" autocomplete="off"></div>
+  <div class="sync" id="sync"><i></i>Chargement…</div>
+  <button class="out" id="logout">Déconnexion</button>
+</header>
+<main id="main"><div class="empty">Chargement…</div></main>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer"></aside>
+<div class="toast" id="toast"></div>
+
+<script>
+const PIPES = {
+  "Promoteurs": ["Lead Identifiés","Contact effectué","Rendez-vous effectué","Discussions en cours","100% Closed"],
+  "Orlinski Bay · Acquéreurs": ["Demande reçue","Qualifié","Échange / visite","Réservation","Vendu"],
+  "Opportunities": ["Lead à contacter","Prise de contact effectuée","Next step ?"]
+};
+const WON_STAGES = ["100% Closed","Vendu"];
+const STATUSES = ["En cours","Gagnée","Perdue"];
+const CURR = ["EUR","AED","USD","GBP"];
+const LEAD_TYPES = {buyer:"Acquéreur Orlinski Bay",developer:"Promoteur",investor:"Investisseur",partner:"Partenaire",press:"Presse",broker:"Agent / broker",landowner:"Propriétaire foncier",other:"Autre"};
+const LEAD_STATES = {new:"Nouvelle",done:"Traitée",converted:"Convertie",ignored:"Ignorée"};
+const S = {
+  rec:{deals:{},orgs:{},people:{},notes:{},files:{},leadstate:{}}, leads:[], configured:true, loaded:false,
+  view:"pipeline", pipe:"Promoteurs", status:"open", q:"", leadFilter:"open",
+  sort:{affaires:["updated",-1],organisations:["name",1],contacts:["name",1],demandes:["created_at",-1]},
+  filt:{stage:"",label:""}, open:null, pending:0
+};
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const today = () => new Date().toISOString().slice(0,10);
+const nowStamp = () => new Date().toISOString().slice(0,16).replace("T"," ");
+const fmt = (n,c) => n==null||n==="" ? "" : new Intl.NumberFormat("fr-FR",{maximumFractionDigits:0}).format(+n)+(c?" "+c:"");
+const short = (n,c) => { if(n==null) return ""; n=+n; const s = n>=1e9? (n/1e9).toFixed(n%1e9?1:0)+" Md" : n>=1e6? (n/1e6).toFixed(n%1e6?1:0)+" M" : n>=1e3? Math.round(n/1e3)+" k" : String(n); return s.replace(".",",")+(c?" "+c:""); };
+const d10 = s => s ? String(s).slice(0,10) : "";
+const frDate = s => { s=d10(s); if(!s) return ""; const [y,m,d]=s.split("-"); return `${d}/${m}/${y.slice(2)}`; };
+const cleanTitle = t => String(t||"").replace(/^Deal\s*-\s*/i,"").trim();
+const norm = s => String(s||"").trim().toLowerCase();
+
+function list(kind){ return Object.values(S.rec[kind]||{}).filter(r=>!r._deleted); }
+function byId(kind,id){ if(id==null||id==="") return null; const r=(S.rec[kind]||{})[String(id)]; return r&&!r._deleted?r:null; }
+function orgName(d){ const o=byId("orgs",d.orgId); return o?o.name:(d.org||""); }
+function personName(d){ const p=byId("people",d.personId); return p?p.name:(d.person||""); }
+function overdue(d){ return d.nextActivity && d10(d.nextActivity) < today(); }
+function leadState(l){ const s=byId("leadstate",l.id); return s?s.state:"new"; }
+
+/* ---------- server ---------- */
+function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("on"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("on"),2800); }
+function setSync(cls,txt){ const el=document.getElementById("sync"); el.className="sync "+cls; el.innerHTML="<i></i>"+esc(txt); }
+async function api(path,opts){
+  const r = await fetch(path,{credentials:"same-origin",headers:{"Content-Type":"application/json"},...opts});
+  if(r.status===401){ location.href="/admin"; throw new Error("unauthorized"); }
+  const j = await r.json().catch(()=>({}));
+  if(!r.ok) throw new Error(j.error||("HTTP "+r.status));
+  return j;
+}
+async function load(silent){
+  try{
+    const j = await api("/api/admin/data");
+    S.configured = j.configured !== false;
+    const rec={deals:{},orgs:{},people:{},notes:{},files:{},leadstate:{}};
+    for(const r of j.records||[]){ if(!rec[r.kind]) rec[r.kind]={}; rec[r.kind][r.id] = r.deleted ? {...r.data,id:r.id,_deleted:true} : {...r.data,id:r.data.id??r.id}; }
+    if(S.pending===0) S.rec=rec;
+    S.leads = j.leads||[]; S.loaded=true;
+    setSync("ok", "À jour · "+new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}));
+    if(j.leadsError) toast("Demandes du site illisibles : "+j.leadsError);
+  }catch(e){ if(e.message!=="unauthorized"){ setSync("warn","Chargement impossible"); if(!silent) toast("Impossible de charger les données : "+e.message); } S.loaded=true; }
+  render(); refreshDrawer();
+}
+const chains={};
+function save(kind,id,patch,{replace=false}={}){
+  const key=String(id), cur=(S.rec[kind]||{})[key]||{id};
+  const rec = replace ? {...patch,id:patch.id??id} : {...cur,...patch,updated:nowStamp()};
+  if(!S.rec[kind]) S.rec[kind]={};
+  S.rec[kind][key]=rec; render(); refreshDrawer();
+  const {_deleted,...data}=rec;
+  S.pending++; setSync("warn","Enregistrement…");
+  chains[kind+key]=(chains[kind+key]||Promise.resolve()).then(()=>
+    api("/api/admin/save",{method:"POST",body:JSON.stringify({kind,id:key,data,deleted:!!_deleted})})
+      .then(()=>setSync("ok","Enregistré"))
+      .catch(e=>{ setSync("warn","Échec d'enregistrement"); toast("Non enregistré : "+e.message); })
+      .finally(()=>{ S.pending--; }));
+  return chains[kind+key];
+}
+const newId = p => p+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+
+/* ---------- views ---------- */
+function matchQ(r, fields){ const q=norm(S.q); if(!q) return true; return fields.some(f=>norm(typeof f==="function"?f(r):r[f]).includes(q)); }
+const dealQ=[d=>cleanTitle(d.title),orgName,personName,"label","city","country"];
+function dealsFiltered(){
+  return list("deals").filter(d=>{
+    if(S.status==="open"&&d.status!=="En cours") return false;
+    if(S.status==="won"&&d.status!=="Gagnée") return false;
+    if(S.status==="lost"&&d.status!=="Perdue") return false;
+    return matchQ(d,dealQ);
+  });
+}
+function kpis(deals){
+  const open=deals.filter(d=>d.status==="En cours"), won=list("deals").filter(d=>d.status==="Gagnée");
+  const gdv={},roy={};
+  for(const d of open){ if(d.gdv){ const c=d.gdvCurrency||d.currency||"?"; gdv[c]=(gdv[c]||0)+ +d.gdv; if(d.royalty) roy[c]=(roy[c]||0)+d.gdv*d.royalty/100; } }
+  const join=o=>Object.keys(o).length?Object.entries(o).map(([c,v])=>short(v,c)).join(" · "):"—";
+  const late=open.filter(overdue).length, nl=S.leads.filter(l=>leadState(l)==="new").length;
+  return `<div class="kpis">
+    <div class="kpi"><div class="l">Affaires en cours</div><div class="v">${open.length}</div><div class="s">${open.filter(d=>d.gdv).length} avec GDV renseigné</div></div>
+    <div class="kpi"><div class="l">GDV ciblé</div><div class="v">${join(gdv)}</div><div class="s">par devise, sans conversion</div></div>
+    <div class="kpi"><div class="l">Royalties potentielles</div><div class="v">${join(roy)}</div><div class="s">GDV × taux de royalty</div></div>
+    <div class="kpi"><div class="l">Gagnées</div><div class="v">${won.length}</div><div class="s">${won.map(d=>esc(cleanTitle(d.title))).join(", ")||"—"}</div></div>
+    <div class="kpi ${late?"alert":""}"><div class="l">Relances en retard</div><div class="v">${late}</div><div class="s">prochaine action dépassée</div></div>
+    <div class="kpi ${nl?"alert":""}"><div class="l">Demandes non traitées</div><div class="v">${nl}</div><div class="s">formulaire du site</div></div>
+  </div>`;
+}
+function statusSeg(){ return `<div class="seg">${[["open","En cours"],["won","Gagnées"],["lost","Perdues"],["all","Toutes"]].map(([k,l])=>`<button data-status="${k}" class="${S.status===k?"on":""}">${l}</button>`).join("")}</div>`; }
+function card(d){
+  const t=[];
+  if(d.source==="Site web") t.push(`<span class="tag ink">Site web</span>`);
+  if(d.label) t.push(`<span class="tag">${esc(d.label)}</span>`);
+  if(d.gdv) t.push(`<span class="tag b">GDV ${esc(short(d.gdv,d.gdvCurrency||d.currency))}</span>`);
+  if(d.royalty) t.push(`<span class="tag b">${esc(d.royalty)} %</span>`);
+  if(d.status==="Gagnée") t.push(`<span class="tag green">Gagnée</span>`);
+  if(d.status==="Perdue") t.push(`<span class="tag red">Perdue</span>`);
+  if(d.nextActivity) t.push(`<span class="tag ${overdue(d)&&d.status==="En cours"?"red":""}">→ ${frDate(d.nextActivity)}</span>`);
+  const who=[orgName(d),personName(d)].filter(Boolean);
+  return `<div class="cardd ${d.status==="Gagnée"?"won":d.status==="Perdue"?"lost":""}" draggable="true" data-open="deals:${esc(d.id)}" data-drag="${esc(d.id)}">
+    <div class="t">${esc(cleanTitle(d.title))}</div>${who.length?`<div class="m">${esc(who.join(" · "))}</div>`:""}${t.length?`<div class="r">${t.join("")}</div>`:""}</div>`;
+}
+function viewPipeline(){
+  const deals=dealsFiltered().filter(d=>d.pipeline===S.pipe), stages=PIPES[S.pipe]||[];
+  const extra=[...new Set(deals.map(d=>d.stage).filter(s=>!stages.includes(s)))];
+  const cols=[...stages,...extra].map(st=>{
+    const ds=deals.filter(d=>d.stage===st).sort((a,b)=>(b.gdv||0)-(a.gdv||0)||String(b.updated).localeCompare(String(a.updated)));
+    const g={}; ds.forEach(d=>{ if(d.gdv){const c=d.gdvCurrency||d.currency; g[c]=(g[c]||0)+ +d.gdv;} });
+    const gs=Object.entries(g).map(([c,v])=>short(v,c)).join(" · ");
+    return `<div class="col" data-stage="${esc(st)}"><div class="colh"><b>${esc(st)}</b><span>${ds.length}${gs?"<br>"+esc(gs):""}</span></div><div class="cards">${ds.map(card).join("")||'<div class="muted" style="padding:8px 4px;font-size:12px">—</div>'}</div></div>`;
+  }).join("");
+  return `<div class="bar"><h1>Pipeline</h1><div class="seg">${Object.keys(PIPES).map(p=>`<button data-pipe="${esc(p)}" class="${S.pipe===p?"on":""}">${esc(p)}</button>`).join("")}</div>${statusSeg()}<div class="sp"></div><button class="btn" data-new="deals">+ Nouvelle affaire</button></div>
+    ${kpis(dealsFiltered())}<div class="board">${cols}</div>`;
+}
+function sortRows(rows,key,cols){
+  const [k,dir]=S.sort[key], col=cols.find(c=>c[0]===k), get=col&&col[3]?col[3]:(r=>r[k]);
+  return rows.sort((a,b)=>{ let x=get(a)??"", y=get(b)??""; if(typeof x==="number"||typeof y==="number") return ((+x||0)-(+y||0))*dir; return String(x).localeCompare(String(y),"fr",{numeric:true})*dir; });
+}
+function table(key,rows,cols,kind,rowCls){
+  const [sk,sd]=S.sort[key];
+  return `<div class="tw"><table><thead><tr>${cols.map(c=>`<th data-sort="${key}:${c[0]}" class="${sk===c[0]?"s"+(sd>0?" asc":""):""}">${c[1]}</th>`).join("")}</tr></thead>
+  <tbody>${rows.map(r=>`<tr class="row ${rowCls?rowCls(r):""}" data-open="${kind}:${esc(r.id)}">${cols.map(c=>`<td class="${c[4]||""}">${c[2](r)}</td>`).join("")}</tr>`).join("")||`<tr><td colspan="${cols.length}" class="empty">Aucun résultat</td></tr>`}</tbody></table></div>`;
+}
+function viewLeads(){
+  let rows=S.leads.filter(l=>{ const st=leadState(l); if(S.leadFilter==="open"&&st!=="new") return false; if(S.leadFilter==="done"&&st==="new") return false; return matchQ(l,["name","email","company","phone","message","project_location"]); });
+  const stTag=l=>{ const s=leadState(l); return `<span class="tag ${s==="new"?"ink":s==="converted"?"green":""}">${LEAD_STATES[s]}</span>`; };
+  const cols=[
+    ["created_at","Reçue",l=>frDate(l.created_at)+` <span class="muted">${String(l.created_at||"").slice(11,16)}</span>`,null,"num"],
+    ["name","Nom",l=>`<b>${esc(l.name)}</b>`],
+    ["user_type","Profil",l=>esc(LEAD_TYPES[l.user_type]||l.user_type)],
+    ["company","Société",l=>esc(l.company)],
+    ["email","E-mail",l=>esc(l.email)],
+    ["gdv_range","GDV / budget",l=>esc(l.gdv_range)],
+    ["message","Message",l=>`<span class="muted">${esc(String(l.message||"").slice(0,90))}${String(l.message||"").length>90?"…":""}</span>`],
+    ["state","Statut",stTag,leadState]
+  ];
+  rows=sortRows(rows,"demandes",cols);
+  const nNew=S.leads.filter(l=>leadState(l)==="new").length;
+  return `<div class="bar"><h1>Demandes du site</h1><div class="seg">${[["open","À traiter ("+nNew+")"],["done","Traitées"],["all","Toutes"]].map(([k,l])=>`<button data-leadf="${k}" class="${S.leadFilter===k?"on":""}">${l}</button>`).join("")}</div><span class="count">Formulaires envoyés depuis orlinskirealtygroup.com</span></div>
+    ${table("demandes",rows,cols,"leads",l=>leadState(l)==="new"?"unread":"")}`;
+}
+function viewDeals(){
+  let rows=dealsFiltered().filter(d=>(!S.filt.stage||d.stage===S.filt.stage)&&(!S.filt.label||d.label===S.filt.label));
+  const labels=[...new Set(list("deals").map(d=>d.label).filter(Boolean))].sort(), stages=[...new Set(list("deals").map(d=>d.stage).filter(Boolean))];
+  const cols=[
+    ["title","Affaire",d=>`<b>${esc(cleanTitle(d.title))}</b>`,d=>cleanTitle(d.title)],
+    ["org","Organisation",d=>esc(orgName(d)),orgName],["person","Contact",d=>esc(personName(d)),personName],
+    ["pipeline","Pipeline",d=>esc(d.pipeline)],["stage","Étape",d=>esc(d.stage)],
+    ["status","Statut",d=>d.status==="Gagnée"?'<span class="tag green">Gagnée</span>':d.status==="Perdue"?'<span class="tag red">Perdue</span>':'<span class="muted">En cours</span>'],
+    ["label","Marché",d=>esc(d.label)],
+    ["gdv","GDV",d=>esc(fmt(d.gdv,d.gdv?(d.gdvCurrency||d.currency):"")),d=>+d.gdv||0,"num"],
+    ["royalty","Royalty",d=>d.royalty?esc(d.royalty)+" %":"",d=>+d.royalty||0,"num"],
+    ["nextActivity","Prochaine action",d=>d.nextActivity?`<span class="${overdue(d)&&d.status==="En cours"?"tag red":""}">${frDate(d.nextActivity)}</span>`:"",null,"num"],
+    ["updated","Mis à jour",d=>`<span class="muted">${frDate(d.updated)}</span>`,null,"num"]
+  ];
+  rows=sortRows(rows,"affaires",cols);
+  return `<div class="bar"><h1>Affaires</h1>${statusSeg()}
+    <select class="f" data-filt="stage"><option value="">Toutes les étapes</option>${stages.map(s=>`<option ${S.filt.stage===s?"selected":""}>${esc(s)}</option>`).join("")}</select>
+    <select class="f" data-filt="label"><option value="">Tous les marchés</option>${labels.map(s=>`<option ${S.filt.label===s?"selected":""}>${esc(s)}</option>`).join("")}</select>
+    <span class="count">${rows.length} affaire${rows.length>1?"s":""}</span><div class="sp"></div><button class="btn" data-new="deals">+ Nouvelle affaire</button></div>${table("affaires",rows,cols,"deals")}`;
+}
+function viewOrgs(){
+  const deals=list("deals"), people=list("people");
+  const nd=o=>deals.filter(d=>String(d.orgId)===String(o.id)).length, np=o=>people.filter(p=>String(p.orgId)===String(o.id)).length;
+  let rows=list("orgs").filter(o=>matchQ(o,["name","label","website","goBetween","sector"]));
+  const cols=[
+    ["name","Organisation",o=>`<b>${esc(o.name)}</b>`],["label","Étiquette",o=>o.label?`<span class="tag b">${esc(o.label)}</span>`:""],
+    ["np","Contacts",o=>np(o)||"",np,"num"],["nd","Affaires",o=>nd(o)||"",nd,"num"],["goBetween","Intermédiaire",o=>esc(o.goBetween)],
+    ["website","Site",o=>o.website?`<a href="${esc(/^https?:/.test(o.website)?o.website:"https://"+o.website)}" target="_blank" rel="noopener">${esc(o.website.replace(/^https?:\/\//,""))}</a>`:""],
+    ["updated","Mis à jour",o=>`<span class="muted">${frDate(o.updated)}</span>`,null,"num"]
+  ];
+  rows=sortRows(rows,"organisations",cols);
+  return `<div class="bar"><h1>Organisations</h1><span class="count">${rows.length}</span><div class="sp"></div><button class="btn" data-new="orgs">+ Nouvelle organisation</button></div>${table("organisations",rows,cols,"orgs")}`;
+}
+function viewPeople(){
+  let rows=list("people").filter(p=>matchQ(p,["name","email","emailOther","phone","phoneMobile",orgName,"label"]));
+  const cols=[
+    ["name","Nom",p=>`<b>${esc(p.name)}</b>`],["org","Organisation",p=>esc(orgName(p)),orgName],["email","E-mail",p=>esc(p.email)],
+    ["phone","Téléphone",p=>esc(p.phone||p.phoneMobile||p.phoneOther||"")],["label","Étiquette",p=>p.label?`<span class="tag b">${esc(p.label)}</span>`:""],
+    ["emails","E-mails",p=>p.emails||"",p=>+p.emails||0,"num"],["updated","Mis à jour",p=>`<span class="muted">${frDate(p.updated)}</span>`,null,"num"]
+  ];
+  rows=sortRows(rows,"contacts",cols);
+  return `<div class="bar"><h1>Contacts</h1><span class="count">${rows.length}</span><div class="sp"></div><button class="btn" data-new="people">+ Nouveau contact</button></div>${table("contacts",rows,cols,"people")}`;
+}
+function viewSetup(){
+  if(!S.configured) return `<div class="panel"><h2>Base de données à brancher</h2><p>Le back office fonctionne, mais le site n'a pas encore accès à sa base Supabase. Il faut renseigner <b>NEXT_PUBLIC_SUPABASE_URL</b>, <b>NEXT_PUBLIC_SUPABASE_ANON_KEY</b> et <b>SUPABASE_SERVICE_ROLE_KEY</b> dans Vercel, puis exécuter <code>supabase/migrations/002_backoffice.sql</code>.</p></div>`;
+  return `<div class="panel"><h2>Importer les données Pipedrive</h2><p>Le CRM est vide. Sélectionne le fichier <b>pipedrive-import.json</b> pour y charger les affaires, organisations, contacts, notes et fichiers exportés de Pipedrive. L'import ne se fait qu'une fois.</p>
+    <p><input type="file" id="imp" accept=".json,application/json"></p><div id="impmsg" class="muted"></div></div>`;
+}
+function render(){
+  const nl=S.leads.filter(l=>leadState(l)==="new").length, nb=document.getElementById("nb"); nb.hidden=!nl; nb.textContent=nl;
+  document.querySelectorAll("#nav a").forEach(a=>a.classList.toggle("on",a.dataset.v===S.view));
+  const main=document.getElementById("main"); if(!S.loaded) return;
+  const sx=main.querySelector(".board")?.scrollLeft, ty=main.querySelector(".tw")?.scrollTop;
+  const empty=!list("deals").length&&!list("orgs").length&&!list("people").length;
+  if((!S.configured||empty)&&S.view!=="demandes") main.innerHTML=viewSetup();
+  else main.innerHTML = S.view==="demandes"?viewLeads():S.view==="affaires"?viewDeals():S.view==="organisations"?viewOrgs():S.view==="contacts"?viewPeople():viewPipeline();
+  if(sx!=null&&main.querySelector(".board")) main.querySelector(".board").scrollLeft=sx;
+  if(ty!=null&&main.querySelector(".tw")) main.querySelector(".tw").scrollTop=ty;
+}
+
+/* ---------- drawer ---------- */
+const FIELDS={
+  deals:[["title","Titre","text","wide"],["pipeline","Pipeline","pipe"],["stage","Étape","stage"],["status","Statut","sel",STATUSES],["orgId","Organisation","org"],["personId","Contact","person"],["label","Marché / pays","text"],["typology","Typologie","text"],["city","Localisation","text"],["country","Pays","text"],["gdv","GDV ciblé","number"],["gdvCurrency","Devise GDV","sel",CURR],["royalty","Royalties (%)","number"],["minGuarantee","Minimum garanti","text"],["value","Valeur de l'affaire","number"],["currency","Devise","sel",CURR],["nextActivity","Prochaine action","date"],["lostReason","Raison de perte","text"]],
+  orgs:[["name","Nom","text","wide"],["label","Étiquette","text"],["priority","Priorité","text"],["website","Site web","text"],["linkedin","LinkedIn","text"],["sector","Secteur","text"],["goBetween","Intermédiaire","text"],["address","Adresse","text","wide"],["nextActivity","Prochaine action","date"]],
+  people:[["name","Nom","text","wide"],["orgId","Organisation","org"],["label","Étiquette","text"],["role","Fonction","text"],["email","E-mail","text"],["emailOther","E-mail (autre)","text"],["phone","Téléphone","text"],["phoneMobile","Mobile","text"],["nextActivity","Prochaine action","date"]]
+};
+const KLAB={deals:"Affaire",orgs:"Organisation",people:"Contact",leads:"Demande du site"};
+function input(r,f){
+  const [k,l,t,o]=f, v=r[k]??"", a=`data-f="${k}"`; let h;
+  if(t==="sel") h=`<select ${a}><option value=""></option>${o.map(x=>`<option ${String(v)===x?"selected":""}>${esc(x)}</option>`).join("")}${v&&!o.includes(v)?`<option selected>${esc(v)}</option>`:""}</select>`;
+  else if(t==="pipe") h=`<select ${a}>${Object.keys(PIPES).map(x=>`<option ${v===x?"selected":""}>${esc(x)}</option>`).join("")}</select>`;
+  else if(t==="stage"){ const st=PIPES[r.pipeline]||[]; h=`<select ${a}>${st.map(x=>`<option ${v===x?"selected":""}>${esc(x)}</option>`).join("")}${v&&!st.includes(v)?`<option selected>${esc(v)}</option>`:""}</select>`; }
+  else if(t==="org"){ const os=list("orgs").sort((x,y)=>String(x.name).localeCompare(y.name,"fr")); h=`<select ${a}><option value="">—</option>${os.map(o=>`<option value="${esc(o.id)}" ${String(v)===String(o.id)?"selected":""}>${esc(o.name)}</option>`).join("")}</select>`; }
+  else if(t==="person"){ let ps=list("people"); if(r.orgId) ps=ps.filter(p=>String(p.orgId)===String(r.orgId)||String(p.id)===String(v)); ps.sort((x,y)=>String(x.name).localeCompare(y.name,"fr")); h=`<select ${a}><option value="">—</option>${ps.map(p=>`<option value="${esc(p.id)}" ${String(v)===String(p.id)?"selected":""}>${esc(p.name)}</option>`).join("")}</select>`; }
+  else h=`<input type="${t==="number"?"number":t==="date"?"date":"text"}" value="${esc(t==="date"?d10(v):v)}" ${a}>`;
+  return `<div class="fld ${f[3]==="wide"?"wide":""}"><label>${l}</label>${h}</div>`;
+}
+function related(kind,r){
+  const id=String(r.id), eq=(x,y)=>x!=null&&String(x)===String(y), deals=list("deals"), people=list("people"); let out="";
+  const dealLi=d=>`<div class="li" data-open="deals:${esc(d.id)}"><span><b>${esc(cleanTitle(d.title))}</b> <span class="muted">· ${esc(d.stage)}</span></span><span class="muted">${d.gdv?esc(short(d.gdv,d.gdvCurrency||d.currency)):""} ${d.status!=="En cours"?esc(d.status):""}</span></div>`;
+  const persLi=p=>`<div class="li" data-open="people:${esc(p.id)}"><span><b>${esc(p.name)}</b></span><span class="muted">${esc(p.email||p.phone||"")}</span></div>`;
+  if(kind==="deals"){ const o=byId("orgs",r.orgId), p=byId("people",r.personId);
+    if(o||p) out+=`<div class="sec"><h3>Liens</h3>${o?`<div class="li" data-open="orgs:${esc(o.id)}"><span>Organisation · <b>${esc(o.name)}</b></span><span>›</span></div>`:""}${p?`<div class="li" data-open="people:${esc(p.id)}"><span>Contact · <b>${esc(p.name)}</b></span><span class="muted">${esc(p.email||p.phone||"")}</span></div>`:""}</div>`; }
+  if(kind==="orgs"){ const ps=people.filter(p=>eq(p.orgId,id)), ds=deals.filter(d=>eq(d.orgId,id));
+    out+=`<div class="sec"><h3>Contacts <span>${ps.length}</span></h3>${ps.map(persLi).join("")||'<div class="muted">Aucun</div>'}</div><div class="sec"><h3>Affaires <span>${ds.length}</span></h3>${ds.map(dealLi).join("")||'<div class="muted">Aucune</div>'}</div>`; }
+  if(kind==="people"){ const ds=deals.filter(d=>eq(d.personId,id)), o=byId("orgs",r.orgId);
+    if(o) out+=`<div class="sec"><h3>Organisation</h3><div class="li" data-open="orgs:${esc(o.id)}"><span><b>${esc(o.name)}</b></span><span>›</span></div></div>`;
+    out+=`<div class="sec"><h3>Affaires <span>${ds.length}</span></h3>${ds.map(dealLi).join("")||'<div class="muted">Aucune</div>'}</div>`;
+    const em=[r.emails?`${r.emails} e-mails échangés`:"",r.lastEmailIn?`dernier reçu ${frDate(r.lastEmailIn)}`:"",r.lastEmailOut?`dernier envoyé ${frDate(r.lastEmailOut)}`:""].filter(Boolean).join(" · ");
+    if(em) out+=`<div class="sec"><h3>Historique e-mail (Pipedrive)</h3><div class="muted">${esc(em)}</div></div>`; }
+  const key=kind==="deals"?"dealId":kind==="orgs"?"orgId":"personId";
+  const notes=list("notes").filter(n=>eq(n[key],id)&&n.content).sort((a,b)=>String(b.created).localeCompare(String(a.created)));
+  out+=`<div class="sec"><h3>Notes <span>${notes.length}</span></h3><div class="addnote"><textarea id="newnote" placeholder="Ajouter une note…"></textarea><div style="margin:6px 0 12px;text-align:right"><button class="btn" data-addnote>Ajouter la note</button></div></div>
+    ${notes.map(n=>`<div class="note ${n.content.length>900?"long":""}"><div class="nm"><span>${frDate(n.created)} · ${esc(n.author||"")}${kind!=="deals"&&n.dealId&&byId("deals",n.dealId)?` · ${esc(cleanTitle(byId("deals",n.dealId).title))}`:""}</span><a data-delnote="${esc(n.id)}">supprimer</a></div>${esc(n.content)}</div>`).join("")||'<div class="muted">Aucune note</div>'}</div>`;
+  const files=list("files").filter(f=>eq(f[key],id));
+  if(files.length) out+=`<div class="sec"><h3>Fichiers Pipedrive <span>${files.length}</span></h3><div class="muted" style="font-size:11.5px;margin-bottom:8px">Liens hébergés chez Pipedrive, inactifs après la fermeture du compte.</div>${files.map(f=>`<div class="li" style="cursor:default"><span>${esc(f.name)}</span><span class="muted">${frDate(f.created)} · <a href="${esc(f.url)}" target="_blank" rel="noopener">ouvrir</a></span></div>`).join("")}</div>`;
+  return out;
+}
+function leadDrawer(l){
+  const st=leadState(l), ls=byId("leadstate",l.id)||{};
+  const row=(k,v,w)=>v?`<div class="fld ${w?"wide":""}"><label>${k}</label><div class="ro">${esc(v)}</div></div>`:"";
+  const linked=ls.dealId&&byId("deals",ls.dealId);
+  return `<div class="dh"><div><div class="k">${KLAB.leads} · ${LEAD_STATES[st]}</div><h2>${esc(l.name)}</h2><div class="muted" style="font-size:12px;margin-top:4px">Reçue le ${frDate(l.created_at)} à ${String(l.created_at||"").slice(11,16)} · ${esc(LEAD_TYPES[l.user_type]||l.user_type)}</div></div><button class="x" data-close>×</button></div>
+  <div class="db"><div class="grid">${row("E-mail",l.email)}${row("Téléphone",l.phone)}${row("Société",l.company)}${row("Fonction",l.role)}${row("Projet / localisation",l.project_location)}${row("Type d'actif",l.asset_type)}${row("GDV / budget",l.gdv_range)}${row("Calendrier",l.timeline)}${row("Message",l.message,1)}</div>
+  ${l.email?`<div class="sec"><a class="btn light" style="text-decoration:none;display:inline-block" href="mailto:${esc(l.email)}">Répondre par e-mail</a> <span class="muted" style="font-size:12px">${esc(l.email)}</span></div>`:""}
+  ${linked?`<div class="sec"><h3>Affaire créée</h3><div class="li" data-open="deals:${esc(linked.id)}"><span><b>${esc(cleanTitle(linked.title))}</b> <span class="muted">· ${esc(linked.pipeline)} · ${esc(linked.stage)}</span></span><span>›</span></div></div>`:""}</div>
+  <div class="df">${st!=="converted"?`<button class="btn" data-convert>Créer contact + affaire</button>`:""}${st==="new"?`<button class="btn light" data-leadstate="done">Marquer traitée</button><button class="btn light" data-leadstate="ignored">Ignorer</button>`:`<button class="btn light" data-leadstate="new">Remettre à traiter</button>`}</div>`;
+}
+function drawerHtml(){
+  const {kind,id}=S.open;
+  if(kind==="leads"){ const l=S.leads.find(x=>String(x.id)===id); return l?leadDrawer(l):`<div class="dh"><h2>Introuvable</h2><button class="x" data-close>×</button></div>`; }
+  const r=byId(kind,id); if(!r) return `<div class="dh"><div><div class="k">${KLAB[kind]}</div><h2>Introuvable</h2></div><button class="x" data-close>×</button></div>`;
+  const title=kind==="deals"?cleanTitle(r.title):r.name;
+  const meta=[r.created?`Créé le ${frDate(r.created)}`:"",r.source?`Origine : ${r.source}`:"",r.wonDate?`Gagnée le ${frDate(r.wonDate)}`:"",r.lostDate?`Perdue le ${frDate(r.lostDate)}`:""].filter(Boolean).join(" · ");
+  return `<div class="dh"><div><div class="k">${KLAB[kind]}</div><h2>${esc(title||"Sans nom")}</h2>${meta?`<div class="muted" style="font-size:12px;margin-top:4px">${esc(meta)}</div>`:""}</div><button class="x" data-close>×</button></div>
+    <div class="db"><div class="grid">${FIELDS[kind].map(f=>input(r,f)).join("")}</div>${related(kind,r)}</div>
+    <div class="df"><span class="muted" style="font-size:11.5px">Enregistrement automatique.</span><div class="sp"></div><button class="btn danger" data-del>Supprimer</button></div>`;
+}
+function openRec(kind,id){ S.open={kind,id:String(id)}; const d=document.getElementById("drawer"); d.innerHTML=drawerHtml(); d.classList.add("on"); document.getElementById("scrim").classList.add("on"); const b=d.querySelector(".db"); if(b) b.scrollTop=0; }
+function closeRec(){ S.open=null; document.getElementById("drawer").classList.remove("on"); document.getElementById("scrim").classList.remove("on"); }
+function refreshDrawer(){
+  if(!S.open) return; const d=document.getElementById("drawer"), ae=document.activeElement;
+  if(ae&&d.contains(ae)&&(ae.tagName==="TEXTAREA"||ae.tagName==="INPUT")) return;
+  const st=d.querySelector(".db")?.scrollTop; d.innerHTML=drawerHtml(); if(st!=null&&d.querySelector(".db")) d.querySelector(".db").scrollTop=st;
+}
+
+/* ---------- lead conversion ---------- */
+async function convertLead(l){
+  let orgId=null;
+  if(l.company){
+    const ex=list("orgs").find(o=>norm(o.name)===norm(l.company));
+    if(ex) orgId=ex.id; else { orgId=newId("o"); save("orgs",orgId,{id:orgId,name:l.company,created:nowStamp(),source:"Site web"},{replace:true}); }
+  }
+  let person=l.email&&list("people").find(p=>norm(p.email)===norm(l.email)||norm(p.emailOther)===norm(l.email));
+  let personId;
+  if(person){ personId=person.id; if(orgId&&!person.orgId) save("people",personId,{orgId,org:l.company}); }
+  else { personId=newId("p"); save("people",personId,{id:personId,name:l.name,email:l.email,phone:l.phone,role:l.role,orgId,org:l.company||undefined,created:nowStamp(),source:"Site web"},{replace:true}); }
+  const pipe=l.user_type==="buyer"?"Orlinski Bay · Acquéreurs":l.user_type==="developer"||l.user_type==="landowner"?"Promoteurs":"Opportunities";
+  const stage=pipe==="Promoteurs"?"Contact effectué":PIPES[pipe][0];
+  const dealId=newId("d");
+  const title=(l.user_type==="buyer"?"Orlinski Bay · ":"")+(l.company||l.name);
+  save("deals",dealId,{id:dealId,title,pipeline:pipe,stage,status:"En cours",orgId,org:l.company||undefined,personId,person:l.name,label:l.project_location||undefined,source:"Site web",currency:"EUR",gdvCurrency:"EUR",created:nowStamp(),updated:nowStamp(),leadId:String(l.id)},{replace:true});
+  const body=["Demande reçue via le site le "+frDate(l.created_at)+" ("+(LEAD_TYPES[l.user_type]||l.user_type)+")",l.project_location&&"Projet : "+l.project_location,l.asset_type&&"Type d'actif : "+l.asset_type,l.gdv_range&&"GDV / budget : "+l.gdv_range,l.timeline&&"Calendrier : "+l.timeline,l.message&&"\n"+l.message].filter(Boolean).join("\n");
+  const nid=newId("n"); save("notes",nid,{id:nid,content:body,dealId,personId,orgId,created:nowStamp(),author:"Site web"},{replace:true});
+  await save("leadstate",String(l.id),{id:String(l.id),state:"converted",dealId,at:nowStamp()},{replace:true});
+  toast("Contact et affaire créés"); openRec("deals",dealId);
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-open],[data-pipe],[data-status],[data-leadf],[data-sort],[data-new],[data-close],[data-addnote],[data-delnote],[data-del],[data-convert],[data-leadstate]"); if(!t) return;
+  if(t.dataset.open){ if(e.target.closest("a[href]")) return; const i=t.dataset.open.indexOf(":"); openRec(t.dataset.open.slice(0,i),t.dataset.open.slice(i+1)); }
+  else if(t.dataset.pipe){ S.pipe=t.dataset.pipe; render(); }
+  else if(t.dataset.status){ S.status=t.dataset.status; render(); }
+  else if(t.dataset.leadf){ S.leadFilter=t.dataset.leadf; render(); }
+  else if(t.dataset.sort){ const [key,col]=t.dataset.sort.split(":"), cur=S.sort[key]; S.sort[key]=[col,cur[0]===col?-cur[1]:(["updated","gdv","royalty","nd","np","emails","nextActivity","created_at"].includes(col)?-1:1)]; render(); }
+  else if(t.dataset.new!=null){
+    const k=t.dataset.new, id=newId(k[0]), base={id,created:nowStamp(),source:"Créé dans le back office"};
+    if(k==="deals") Object.assign(base,{title:"Nouvelle affaire",pipeline:S.pipe,stage:PIPES[S.pipe][0],status:"En cours",currency:"EUR",gdvCurrency:"EUR"});
+    else base.name=k==="orgs"?"Nouvelle organisation":"Nouveau contact";
+    save(k,id,base,{replace:true}); openRec(k,id); setTimeout(()=>{ const i=document.querySelector('#drawer [data-f="'+(k==="deals"?"title":"name")+'"]'); i&&(i.focus(),i.select()); },60);
+  }
+  else if(t.dataset.close!=null) closeRec();
+  else if(t.dataset.addnote!=null){
+    const ta=document.getElementById("newnote"), txt=ta.value.trim(); if(!txt) return;
+    const {kind,id}=S.open, r=byId(kind,id), n={id:newId("n"),content:txt,created:nowStamp(),author:"Ilan AMAR"};
+    if(kind==="deals"){ n.dealId=r.id; if(r.orgId) n.orgId=r.orgId; if(r.personId) n.personId=r.personId; }
+    else if(kind==="orgs") n.orgId=r.id; else { n.personId=r.id; if(r.orgId) n.orgId=r.orgId; }
+    ta.value=""; ta.blur(); save("notes",n.id,n,{replace:true}); toast("Note ajoutée");
+  }
+  else if(t.dataset.delnote){ if(t.classList.contains("arm")) save("notes",t.dataset.delnote,{_deleted:true}); else { t.classList.add("arm"); t.textContent="confirmer ?"; t.style.color="var(--red)"; } }
+  else if(t.dataset.del!=null){ if(!t.classList.contains("arm")){ t.classList.add("arm"); t.textContent="Confirmer la suppression"; return; } const {kind,id}=S.open; save(kind,id,{_deleted:true}); closeRec(); toast(KLAB[kind]+" supprimé(e)"); }
+  else if(t.dataset.convert!=null){ const l=S.leads.find(x=>String(x.id)===S.open.id); if(l){ t.disabled=true; convertLead(l); } }
+  else if(t.dataset.leadstate){ const id=S.open.id; save("leadstate",id,{id,state:t.dataset.leadstate,at:nowStamp()},{replace:true}); }
+});
+document.getElementById("scrim").addEventListener("click",closeRec);
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeRec(); });
+document.getElementById("drawer").addEventListener("change",e=>{
+  const el=e.target, f=el.dataset.f; if(!f||!S.open) return;
+  const {kind,id}=S.open, def=FIELDS[kind].find(x=>x[0]===f); let v=el.value;
+  if(def[2]==="number") v=v===""?null:+v;
+  const patch={[f]:v===""?null:v};
+  if(f==="orgId"){ const o=byId("orgs",v); patch.org=o?o.name:null; }
+  if(f==="personId"){ const p=byId("people",v); patch.person=p?p.name:null; }
+  if(f==="pipeline"){ const cur=byId(kind,id); if(!PIPES[v].includes(cur.stage)) patch.stage=PIPES[v][0]; }
+  if(f==="status"&&v==="Gagnée") patch.wonDate=nowStamp();
+  if(f==="status"&&v==="Perdue") patch.lostDate=nowStamp();
+  el.blur(); save(kind,id,patch);
+});
+document.getElementById("main").addEventListener("change",async e=>{
+  const f=e.target.dataset.filt; if(f){ S.filt[f]=e.target.value; render(); return; }
+  if(e.target.id==="imp"){
+    const file=e.target.files[0], msg=document.getElementById("impmsg"); if(!file) return;
+    msg.textContent="Import en cours…";
+    try{ const seed=JSON.parse(await file.text()); const j=await api("/api/admin/import",{method:"POST",body:JSON.stringify({seed})}); msg.textContent=j.received+" éléments importés."; await load(); }
+    catch(err){ msg.textContent="Échec de l'import : "+err.message; }
+  }
+});
+let qT; document.getElementById("q").addEventListener("input",e=>{ clearTimeout(qT); qT=setTimeout(()=>{ S.q=e.target.value; render(); },120); });
+document.getElementById("logout").addEventListener("click",async()=>{ await fetch("/api/admin/logout",{method:"POST"}); location.href="/admin"; });
+let dragId=null;
+document.addEventListener("dragstart",e=>{ const c=e.target.closest("[data-drag]"); if(!c) return; dragId=c.dataset.drag; e.dataTransfer.effectAllowed="move"; try{e.dataTransfer.setData("text/plain",dragId);}catch(_){} });
+document.addEventListener("dragover",e=>{ const col=e.target.closest(".col"); if(!col||!dragId) return; e.preventDefault(); document.querySelectorAll(".col.over").forEach(c=>c!==col&&c.classList.remove("over")); col.classList.add("over"); });
+document.addEventListener("dragleave",e=>{ const col=e.target.closest(".col"); if(col&&!col.contains(e.relatedTarget)) col.classList.remove("over"); });
+document.addEventListener("drop",e=>{ const col=e.target.closest(".col"); if(!col||!dragId) return; e.preventDefault(); col.classList.remove("over");
+  const d=byId("deals",dragId), st=col.dataset.stage; dragId=null; if(!d||d.stage===st) return;
+  const p={stage:st}; if(WON_STAGES.includes(st)&&d.status==="En cours"){ p.status="Gagnée"; p.wonDate=nowStamp(); }
+  save("deals",d.id,p); toast(cleanTitle(d.title)+" → "+st); });
+document.addEventListener("dragend",()=>{ dragId=null; document.querySelectorAll(".col.over").forEach(c=>c.classList.remove("over")); });
+const VIEWS=["demandes","pipeline","affaires","organisations","contacts"];
+function route(){ const h=location.hash.replace("#",""); S.view=VIEWS.includes(h)?h:"pipeline"; render(); }
+window.addEventListener("hashchange",route);
+window.addEventListener("focus",()=>{ if(S.pending===0&&!(S.open&&document.getElementById("drawer").contains(document.activeElement))) load(true); });
+setInterval(()=>{ if(S.pending===0&&document.visibilityState==="visible"&&!S.open) load(true); },120000);
+route(); load();
+</script>
+</body>
+</html>

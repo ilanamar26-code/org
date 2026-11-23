@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Back office · Orlinski Realty Group</title>
+<link rel="icon" href="/icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#F4EFE8;font-family:Montserrat,sans-serif;color:#2E2925}
+form{background:#fff;border:1px solid #E2D8CC;padding:44px 40px 36px;width:min(380px,92vw);text-align:center}
+img{height:46px;margin-bottom:26px}
+h1{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:26px;margin:0 0 6px}
+p{font-size:12px;color:#6E6358;margin:0 0 26px;letter-spacing:.04em}
+input{width:100%;padding:12px 14px;border:1px solid #CCC0B0;background:#FBF8F4;font:inherit;outline:none}
+input:focus{border-color:#8A7D70}
+button{margin-top:14px;width:100%;padding:12px;border:0;background:#2E2925;color:#F4EFE8;font:inherit;font-size:12px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer}
+button:disabled{opacity:.6}
+.err{color:#9b3b2c;font-size:12px;margin-top:12px;min-height:16px}
+</style>
+</head>
+<body>
+<form id="f">
+  <img src="/logo/2027/org-h-grege.svg" alt="Orlinski Realty Group">
+  <h1>Back office</h1>
+  <p>Accès réservé</p>
+  <input id="pw" type="password" placeholder="Mot de passe" autocomplete="current-password" autofocus>
+  <button id="b">Entrer</button>
+  <div class="err" id="err"></div>
+</form>
+<script>
+document.getElementById('f').addEventListener('submit', async (e) => {
+  e.preventDefault()
+  const b = document.getElementById('b'), err = document.getElementById('err')
+  b.disabled = true; err.textContent = ''
+  try {
+    const r = await fetch('/api/admin/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: document.getElementById('pw').value }) })
+    if (r.ok) { location.href = '/admin'; return }
+    const j = await r.json().catch(() => ({}))
+    err.textContent = j.error === 'not_configured' ? "Le back office n'est pas encore configuré (ADMIN_PASSWORD manquant)." : 'Mot de passe incorrect.'
+  } catch (_) { err.textContent = 'Connexion impossible, réessaie.' }
+  b.disabled = false
+})
+</script>
+</body>
+</html>

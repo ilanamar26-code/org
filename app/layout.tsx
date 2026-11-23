@@ -4,6 +4,7 @@ import { SmoothScroll } from '@/components/motion/SmoothScroll'
 import { Navigation } from '@/components/Navigation'
 import { Footer } from '@/components/Footer'
 import { Providers } from './providers'
+import { Analytics } from '@/components/Analytics'
 import './globals.css'
 
 const cormorant = localFont({
@@ -78,6 +79,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <Analytics />
         </Providers>
       </body>
     </html>
