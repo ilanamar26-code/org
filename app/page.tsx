@@ -5,11 +5,9 @@ import { KenBurnsHero } from '@/components/motion/KenBurnsHero'
 import { Reveal, WordReveal } from '@/components/motion/Reveal'
 import { ParallaxImage } from '@/components/motion/ParallaxImage'
 import { HorizontalGallery } from '@/components/motion/HorizontalGallery'
-import { FilmButton } from '@/components/motion/FilmButton'
 import { pressReleases } from '@/lib/press-releases'
 import { CountUp } from '@/components/motion/CountUp'
 import { Marquee } from '@/components/motion/Marquee'
-import { FilmSection } from '@/components/motion/FilmSection'
 import { RegisterInterestForm } from '@/components/RegisterInterestForm'
 
 const gallery = [
@@ -42,7 +40,6 @@ export default function HomePage() {
               >
                 Start a conversation
               </a>
-              <FilmButton src={ob.film.src} poster={ob.film.poster} mobileSrc={ob.film.mobileSrc} mobilePoster={ob.film.mobilePoster} label="The film" />
             </div>
           </div>
         </div>
@@ -67,16 +64,6 @@ export default function HomePage() {
         </Reveal>
       </div>
       </section>
-
-      {/* Film slot (horizontal) */}
-      <FilmSection
-        src={ob.film.src}
-        poster={ob.film.poster}
-        mobileSrc={ob.film.mobileSrc}
-        mobilePoster={ob.film.mobilePoster}
-        title={<>From rock <span className="italic text-stone">to art.</span></>}
-        caption="Richard Orlinski, Liakos Associates and RO Amoni on how ten villas are drawn out of a Greek hillside."
-      />
 
       {/* Signatures marquee */}
       <section className="full-bleed border-y border-black/10 py-7">

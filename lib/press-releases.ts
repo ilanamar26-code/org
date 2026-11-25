@@ -25,5 +25,4 @@ export const pressKit = [
   { label: 'Fact sheet', detail: 'PDF · 1 page', href: '/press-kit/orlinski-bay-amoni-fact-sheet.pdf' },
   { label: 'Orlinski Bay · Amoni logo', detail: 'SVG', href: '/logo/amoni/amoni-full-logo.svg' },
   { label: 'Selected images', detail: 'ZIP · 8 artist impressions', href: '/press-kit/orlinski-bay-amoni-images.zip' },
-  { label: 'Project film', detail: 'MP4 · 1 min 15', href: '/videos/orlinski-bay-film-master-en.mp4' },
 ]

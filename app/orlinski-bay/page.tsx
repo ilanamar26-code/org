@@ -5,7 +5,6 @@ import { orlinskiBay as ob } from '@/lib/orlinski-bay'
 import { RegisterInterestForm } from '@/components/RegisterInterestForm'
 import { cn } from '@/lib/utils'
 import { KenBurnsHero } from '@/components/motion/KenBurnsHero'
-import { FilmButton } from '@/components/motion/FilmButton'
 import { Reveal } from '@/components/motion/Reveal'
 import { RevealFrame } from '@/components/motion/RevealFrame'
 
@@ -89,7 +88,6 @@ export default function OrlinskiBayPage() {
           <div className="mt-8 flex flex-col gap-8 xl:flex-row xl:items-end xl:justify-between">
             <p className="max-w-xl font-heading text-2xl font-light italic text-white/90 md:text-3xl">{ob.tagline}</p>
             <div className="flex flex-col gap-3 whitespace-nowrap sm:flex-row sm:items-center">
-              <FilmButton src={ob.film.src} poster={ob.film.poster} className="mr-4" />
               <Link
                 href="#register"
                 className="bg-white px-8 py-4 text-center text-[11px] uppercase tracking-[0.3em] text-black transition-colors hover:bg-bronze hover:text-white"

@@ -43,13 +43,6 @@ export const orlinskiBay = {
     clubLounge: img('club-lounge'),
     clubGym: img('club-gym'),
   },
-  film: {
-    src: '/videos/orlinski-bay-film-master-en.mp4',
-    poster: '/videos/orlinski-bay-film-master-en-poster.jpg',
-    // vertical cut shown on phones
-    mobileSrc: '/videos/orlinski-bay-film-instagram-en.mp4',
-    mobilePoster: '/videos/orlinski-bay-film-instagram-en-poster.jpg',
-  },
   logo: {
     full: '/logo/amoni/amoni-full-logo.svg',
     text: '/logo/amoni/amoni-text-logo.svg',
