@@ -75,14 +75,14 @@ export default function HomePage() {
         mobileSrc={ob.film.mobileSrc}
         mobilePoster={ob.film.mobilePoster}
         title={<>From rock <span className="italic text-stone">to art.</span></>}
-        caption="Richard Orlinski, Liakos Associates and KAMAI Group on how ten villas are drawn out of a Greek hillside."
+        caption="Richard Orlinski, Liakos Associates and RO Amoni on how ten villas are drawn out of a Greek hillside."
       />
 
       {/* Signatures marquee */}
       <section className="full-bleed border-y border-black/10 py-7">
         <Marquee
           className="font-heading text-3xl font-light italic text-black md:text-4xl"
-          items={['Richard Orlinski × Liakos Associates', 'Orlinski Bay · Amoni', 'Developed by KAMAI Group', "L'Atelier · Athens", 'Orlinski Realty Group']}
+          items={['Richard Orlinski × Liakos Associates', 'Orlinski Bay · Amoni', 'Developed by RO Amoni', "L'Atelier · Athens", 'Orlinski Realty Group']}
         />
       </section>
 

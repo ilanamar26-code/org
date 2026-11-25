@@ -63,7 +63,7 @@ export default async function PressPage() {
             </h2>
           </div>
           <p className="max-w-sm text-sm text-graphite">
-            Ten villas signed by Richard Orlinski on the Greek coast, with Liakos Associates Architects and KAMAI Group.
+            Ten villas signed by Richard Orlinski on the Greek coast, with Liakos Associates Architects and RO Amoni.
           </p>
         </div>
 

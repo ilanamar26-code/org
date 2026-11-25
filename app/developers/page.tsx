@@ -85,7 +85,7 @@ export default function DevelopersPage() {
           </div>
           <Reveal>
             <p className="text-lg leading-relaxed text-graphite">
-              On the Saronic coast, our Greek partner KAMAI owned an untouched stretch of rock and pine. KAMAI develops,
+              On the Saronic coast, our Greek partner RO Amoni owned an untouched stretch of rock and pine. RO Amoni develops,
               builds and sells. Orlinski Realty Group brought everything that makes it an Orlinski destination: ten villas
               that are works of art, a name, a story and a place to sell them.
             </p>

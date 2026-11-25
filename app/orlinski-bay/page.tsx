@@ -12,7 +12,7 @@ import { RevealFrame } from '@/components/motion/RevealFrame'
 export const metadata: Metadata = {
   title: 'Orlinski Bay, Amoni | Ten villas by Richard Orlinski in Greece',
   description:
-    'Ten villas signed by Richard Orlinski on the Saronic coast of Corinthia, designed with Liakos Associates Architects and developed by KAMAI.',
+    'Ten villas signed by Richard Orlinski on the Saronic coast of Corinthia, designed with Liakos Associates Architects and developed by RO Amoni.',
 }
 
 function Chapter({ n, title, light = false }: { n: string; title: string; light?: boolean }) {

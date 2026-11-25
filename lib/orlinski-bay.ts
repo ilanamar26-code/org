@@ -1,5 +1,5 @@
 // Content for the Orlinski Bay, Amoni project page and home page feature.
-// Source: "Orlinski Bay Amoni - Presentation" (KAMAI / Architect).
+// Source: "Orlinski Bay Amoni - Presentation" (RO Amoni / Architect).
 // Areas per Liakos Associates Architects drawings, 08/2026.
 
 const img = (name: string) => `/images/amoni/${name}.jpg`
@@ -105,7 +105,7 @@ export const orlinskiBay = {
     {
       text: 'We want to create a true destination. A place you want to come to, and come back to. And feel at home.',
       name: 'Thomas Samaras',
-      role: 'Developer Partner, KAMAI Group',
+      role: 'Developer Partner, RO Amoni',
     },
   ],
   artistFacts: [
@@ -178,7 +178,7 @@ export const orlinskiBay = {
     },
     {
       role: 'Developer',
-      name: 'KAMAI Group',
+      name: 'RO Amoni',
       text: 'Greek land owner and developer of Orlinski Bay, who builds and sells the villas.',
     },
   ],
