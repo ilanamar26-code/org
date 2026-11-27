@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 
 /** Full-screen opening image with a slow zoom and a fade as you scroll away. */
-export function KenBurnsHero({ src, alt, children }: { src: string; alt: string; children: React.ReactNode }) {
+export function KenBurnsHero({ src, alt, children, shade = false }: { src: string; alt: string; children: React.ReactNode; shade?: boolean }) {
   const reduce = useReducedMotion()
   const { scrollY } = useScroll()
   const opacity = useTransform(scrollY, [0, 600], [1, 0])
@@ -20,6 +20,7 @@ export function KenBurnsHero({ src, alt, children }: { src: string; alt: string;
       >
         <Image src={src} alt={alt} fill priority sizes="100vw" className="object-cover" />
       </motion.div>
+      {shade && <div className="absolute inset-0 bg-[#2e2925]/35" />}
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/30 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
       <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-black/15 to-transparent" />

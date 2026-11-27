@@ -21,7 +21,7 @@ const delivered = [
 ]
 
 const formats = [
-  { t: 'Villa collections', d: 'Limited series of signed villas on exceptional sites, like Orlinski Bay.', image: ob.images.villaPool },
+  { t: 'Villa collections', d: 'Limited series of signed villas on exceptional sites, like Orlinski Bay.', image: '/images/amoni/concept-facets-detail.jpg' },
   { t: 'Hotels & residences', d: 'Hospitality and branded residences in the city, with the Orlinski universe throughout.', image: '/images/wild-collection/szr-living.jpg' },
   { t: 'Coast & mountain', d: 'Beachfront living and alpine retreats, from the Gulf to the French Alps.', image: '/images/wild-collection/bear-out.jpg' },
 ]
@@ -43,7 +43,7 @@ const steps = [
 export default function DevelopersPage() {
   return (
     <div>
-      <KenBurnsHero src={ob.images.living} alt="Double-height living room of an Orlinski Bay villa">
+      <KenBurnsHero src="/images/amoni/concept-facets-rock-wide.jpg" alt="Faceted stone meeting the natural rock" shade>
         <div className="mx-auto flex h-full max-w-screen-2xl flex-col justify-end px-6 pb-14 md:px-12 md:pb-20">
           <p className="eyebrow !text-sand">For developers, worldwide</p>
           <h1 className="mt-5 max-w-4xl font-heading text-[clamp(3rem,8vw,7.5rem)] font-light leading-[0.92] text-white">
@@ -95,7 +95,7 @@ export default function DevelopersPage() {
         <div className="grid gap-6 md:grid-cols-[1.3fr_0.7fr]">
           <Reveal>
             <div className="relative aspect-[16/11] overflow-hidden bg-sand">
-              <Image src={ob.images.heroCliff} alt="Orlinski Bay villa on the cliff" fill sizes="60vw" className="object-cover" />
+              <Image src="/images/amoni/concept-facets-rock-meet.jpg" alt="Faceted stone built around the natural rock" fill sizes="60vw" className="object-cover" />
             </div>
           </Reveal>
           <Reveal delay={0.15}>
