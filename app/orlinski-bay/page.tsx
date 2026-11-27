@@ -9,9 +9,9 @@ import { Reveal } from '@/components/motion/Reveal'
 import { RevealFrame } from '@/components/motion/RevealFrame'
 
 export const metadata: Metadata = {
-  title: 'Orlinski Bay, Amoni | Ten villas by Richard Orlinski in Greece',
+  title: 'Orlinski Bay, Amoni | Villas by Richard Orlinski in Greece',
   description:
-    'Ten villas signed by Richard Orlinski on the Saronic coast of Corinthia, designed with Liakos Associates Architects and developed by RO Amoni.',
+    'Villas signed by Richard Orlinski on the Saronic coast of Corinthia, designed with Liakos Associates Architects and developed by RO Amoni.',
 }
 
 function Chapter({ n, title, light = false }: { n: string; title: string; light?: boolean }) {
@@ -109,7 +109,7 @@ export default function OrlinskiBayPage() {
       <section className="full-bleed border-b border-black/10 bg-ivory">
         <dl className="mx-auto grid max-w-screen-2xl grid-cols-2 gap-y-8 px-6 py-10 md:grid-cols-4 md:px-12">
           {[
-            { k: 'The collection', v: 'Ten villas only' },
+            { k: 'The collection', v: 'A private collection' },
             { k: 'Interiors', v: `${ob.areas.indoorFrom} to ${ob.areas.indoorTo} m²` },
             { k: 'In every villa', v: 'Infinity pool & Orlinski works' },
             { k: 'Sales open', v: '1 December 2026' },

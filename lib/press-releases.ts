@@ -22,7 +22,6 @@ export const aboutOrg =
 export const mediaContact = 'ilan@orlinskirealtygroup.com'
 
 export const pressKit = [
-  { label: 'Fact sheet', detail: 'PDF · 1 page', href: '/press-kit/orlinski-bay-amoni-fact-sheet.pdf' },
   { label: 'Orlinski Bay · Amoni logo', detail: 'SVG', href: '/logo/amoni/amoni-full-logo.svg' },
-  { label: 'Selected images', detail: 'ZIP · 8 artist impressions', href: '/press-kit/orlinski-bay-amoni-images.zip' },
+  { label: 'Press enquiries', detail: 'ilan@orlinskirealtygroup.com', href: 'mailto:ilan@orlinskirealtygroup.com' },
 ]

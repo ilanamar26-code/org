@@ -8,7 +8,7 @@ export const orlinskiBay = {
   name: 'Orlinski Bay',
   place: 'Amoni',
   region: 'Corinthia, Greece',
-  tagline: 'Ten villas signed by Richard Orlinski, between pine, rock and open sea.',
+  tagline: 'Villas signed by Richard Orlinski, between pine, rock and open sea.',
   villas: 10,
   quote: "I don't sculpt matter. I free what it already hides.",
   images: {

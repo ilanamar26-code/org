@@ -28,7 +28,7 @@ const formats = [
 
 const markets = [
   { place: 'Middle East', status: 'Home territory', d: 'Headquartered in Dubai, where ORG was founded.' },
-  { place: 'Greece', status: 'Launched', d: 'Orlinski Bay · Amoni, ten villas, sales open 1 December 2026.' },
+  { place: 'Greece', status: 'Launched', d: 'Orlinski Bay · Amoni, signature villas, sales open 1 December 2026.' },
   { place: 'French Alps', status: 'Next', d: 'A second project, unique in its kind, in the coming months.' },
   { place: 'Your market', status: 'Open', d: 'We review exceptional projects worldwide, case by case.' },
 ]
@@ -86,7 +86,7 @@ export default function DevelopersPage() {
           <Reveal>
             <p className="text-lg leading-relaxed text-graphite">
               On the Saronic coast, our Greek partner RO Amoni owned an untouched stretch of rock and pine. RO Amoni develops,
-              builds and sells. Orlinski Realty Group brought everything that makes it an Orlinski destination: ten villas
+              builds and sells. Orlinski Realty Group brought everything that makes it an Orlinski destination: villas
               that are works of art, a name, a story and a place to sell them.
             </p>
           </Reveal>
@@ -102,7 +102,6 @@ export default function DevelopersPage() {
             <div className="flex h-full flex-col justify-between gap-6 bg-black p-8 text-offwhite">
               <div className="space-y-6">
                 {[
-                  { v: '10', l: 'Signed villas' },
                   { v: '3', l: 'Typologies' },
                   { v: '1', l: 'Sales gallery, Athens' },
                 ].map((n) => (

@@ -63,7 +63,7 @@ export default async function PressPage() {
             </h2>
           </div>
           <p className="max-w-sm text-sm text-graphite">
-            Ten villas signed by Richard Orlinski on the Greek coast, with Liakos Associates Architects and RO Amoni.
+            Villas signed by Richard Orlinski on the Greek coast, with Liakos Associates Architects and RO Amoni.
           </p>
         </div>
 
@@ -95,8 +95,8 @@ export default async function PressPage() {
               <p className="eyebrow !text-sand">Press kit</p>
               <h3 className="font-heading text-4xl font-light text-white">Orlinski Bay · Amoni</h3>
               <p className="text-stone">
-                Images are non-contractual artist&apos;s impressions by Liakos Associates Architects. Credit: Richard
-                Orlinski × Liakos. Areas are indicative.
+                Images, fact sheet and interviews are available to journalists on request. Credit: Richard Orlinski ×
+                Liakos.
               </p>
             </div>
             <ul className="divide-y divide-white/15 border-y border-white/15">

@@ -1,23 +1,12 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { orlinskiBay as ob } from '@/lib/orlinski-bay'
 import { KenBurnsHero } from '@/components/motion/KenBurnsHero'
 import { Reveal, WordReveal } from '@/components/motion/Reveal'
-import { ParallaxImage } from '@/components/motion/ParallaxImage'
-import { HorizontalGallery } from '@/components/motion/HorizontalGallery'
 import { pressReleases } from '@/lib/press-releases'
 import { CountUp } from '@/components/motion/CountUp'
 import { Marquee } from '@/components/motion/Marquee'
 import { RegisterInterestForm } from '@/components/RegisterInterestForm'
 
-const gallery = [
-  { src: ob.images.villaPool, title: 'The villa', caption: 'A sculpted shell of stone, opened to the sea.' },
-  { src: ob.images.entrance, title: 'The arrival', caption: 'Through the rock, into the light.' },
-  { src: ob.images.living, title: 'Interiors', caption: 'Double height, open to the sea.' },
-  { src: ob.images.lounge, title: 'The lounge', caption: 'A sunken lounge around the fire.' },
-  { src: ob.images.suite, title: 'The suites', caption: 'Sleeping against the cliff.' },
-  { src: ob.images.bath, title: 'The bath', caption: 'Carved stone, facing the open sea.' },
-]
 
 export default function HomePage() {
   return (
@@ -31,7 +20,7 @@ export default function HomePage() {
           </h1>
           <div className="mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <p className="max-w-md font-heading text-2xl font-light italic text-white/90 md:text-3xl">
-              Ten villas signed by Richard Orlinski. Amoni, Greece.
+              Villas signed by Richard Orlinski. Amoni, Greece.
             </p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-5 whitespace-nowrap">
               <a
@@ -52,9 +41,9 @@ export default function HomePage() {
           <p className="eyebrow">Our first destination</p>
         </Reveal>
         <h2 className="mt-8 font-heading text-[clamp(2.4rem,5.4vw,5.2rem)] font-light leading-[1.05] text-black">
-          <WordReveal text="Ten villas. One hillside." />
+          <WordReveal text="Villas signed by Richard Orlinski." />
           <br />
-          <WordReveal text="Most of the rock, kept." className="italic text-bronze" />
+          <WordReveal text="One hillside, most of the rock kept." className="italic text-bronze" />
         </h2>
         <Reveal delay={0.2}>
           <p className="mx-auto mt-10 max-w-xl text-lg leading-relaxed text-graphite">
@@ -73,15 +62,9 @@ export default function HomePage() {
         />
       </section>
 
-      {/* 3. Full-bleed parallax */}
-      <section className="full-bleed">
-        <ParallaxImage src={ob.images.aerial} alt="The Saronic coast seen from above" className="h-[85vh] min-h-[480px]" />
-      </section>
-
       {/* 4. Numbers */}
-      <section className="mx-auto grid max-w-[1200px] grid-cols-2 gap-y-6 px-2 py-20 md:grid-cols-4 md:py-36">
+      <section className="mx-auto grid max-w-[1000px] grid-cols-3 gap-y-6 px-2 py-20 md:py-36">
         {[
-          { v: '10', l: 'Villas, one collection' },
           { v: '3', l: 'Typologies' },
           { v: '1 h 30', l: 'From Athens' },
           { v: '1', l: 'Artist' },
@@ -93,13 +76,8 @@ export default function HomePage() {
         ))}
       </section>
 
-      {/* 5. Horizontal gallery */}
-      <HorizontalGallery eyebrow="Inside Orlinski Bay" title="Stone, bronze and the sea." slides={gallery} />
-
       {/* 7. Register */}
-      <section className="full-bleed relative">
-        <Image src={ob.images.night} alt="An Orlinski Bay villa at dusk" fill sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 bg-black/60" />
+      <section className="full-bleed stone-dark relative">
         <div
           id="register"
           className="relative z-10 mx-auto grid max-w-screen-2xl scroll-mt-24 gap-12 px-6 py-24 md:px-12 md:py-32 lg:grid-cols-[0.9fr_1.1fr] lg:items-center"

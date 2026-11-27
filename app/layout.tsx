@@ -35,7 +35,7 @@ const montserrat = localFont({
 export const metadata: Metadata = {
   title: 'Orlinski Realty Group | Orlinski Bay, Amoni · Art-Driven Branded Residences',
   description:
-    'Orlinski Realty Group creates art-driven branded residences with Richard Orlinski. First project: Orlinski Bay, a collection of ten villas at Amoni, Corinthia, Greece.',
+    'Orlinski Realty Group creates art-driven branded residences with Richard Orlinski. First project: Orlinski Bay, a collection of signature villas at Amoni, Corinthia, Greece.',
   keywords: [
     'branded residences',
     'hospitality partnerships',
@@ -46,16 +46,16 @@ export const metadata: Metadata = {
   authors: [{ name: 'Orlinski Realty Group' }],
   metadataBase: new URL('https://orlinskirealtygroup.com'),
   openGraph: {
-    title: 'Orlinski Bay · Ten villas signed by Richard Orlinski',
-    description: 'Orlinski Realty Group presents Orlinski Bay, ten signature villas at Amoni, on the Greek coast.',
+    title: 'Orlinski Bay · Villas signed by Richard Orlinski',
+    description: 'Orlinski Realty Group presents Orlinski Bay, signature villas at Amoni, on the Greek coast.',
     type: 'website',
     locale: 'en_US',
     images: [{ url: '/og-orlinski-bay.jpg', width: 1200, height: 630, alt: 'Orlinski Bay, Amoni' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Orlinski Bay · Ten villas signed by Richard Orlinski',
-    description: 'Orlinski Realty Group presents Orlinski Bay, ten signature villas at Amoni, on the Greek coast.',
+    title: 'Orlinski Bay · Villas signed by Richard Orlinski',
+    description: 'Orlinski Realty Group presents Orlinski Bay, signature villas at Amoni, on the Greek coast.',
     images: ['/og-orlinski-bay.jpg'],
   },
   robots: {
