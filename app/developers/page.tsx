@@ -94,8 +94,8 @@ export default function DevelopersPage() {
 
         <div className="grid gap-6 md:grid-cols-[1.3fr_0.7fr]">
           <Reveal>
-            <div className="relative aspect-[16/11] overflow-hidden bg-sand">
-              <Image src="/images/amoni/concept-facets-rock-meet.jpg" alt="Faceted stone built around the natural rock" fill sizes="60vw" className="object-cover" />
+            <div className="relative aspect-[4/5] overflow-hidden bg-sand md:aspect-[5/6]">
+              <Image src={ob.images.sketch} alt="Richard Orlinski drawing an Orlinski Bay villa" fill sizes="60vw" className="object-cover object-[center_45%]" />
             </div>
           </Reveal>
           <Reveal delay={0.15}>
